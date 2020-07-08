@@ -49,7 +49,7 @@ mybatis:
 
 auth:
   #头像上传地址
-  posticonurl: http://175.24.75.121:8083/user/icon
+  posticonurl: http://localhost:8083/user/icon
   #默认头像地址
   defaultIcon: /images/icon/defaultIcon.jpg
   #本地文件存储位置
