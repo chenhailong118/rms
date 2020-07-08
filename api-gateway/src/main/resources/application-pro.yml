@@ -1,0 +1,17 @@
+server:
+  port: 8080
+management:
+  server:
+    port: 9080
+
+spring:
+  application:
+    name: api-gateway
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8666/eureka/,http://peer2:8777/eureka/
+    #api-gateway作为服务的调用者可以不注册到eureka server
+    register-with-eureka: true

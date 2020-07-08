@@ -1,0 +1,40 @@
+server:
+  port: 8081
+management:
+  server:
+    port: 9081
+
+spring:
+  application:
+    name: actor
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/aikandy?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: root
+    password: root
+
+eureka:
+  instance:
+    #续约间隔心跳时间
+    lease-renewal-interval-in-seconds: 5
+    #续约过期时间
+    lease-expiration-duration-in-seconds: 10
+  client:
+    service-url:
+      defaultZone: http://peer1:8666/eureka/,http://peer2:8777/eureka/
+    #开启健康检查状态上报
+    healthcheck:
+      enabled: true
+
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: con.still.aikandy.actor.entity
+
+#Swagger Tag 排序
+swagger:
+  ui-config:
+    tags-sorter: alpha
+# Swagger 分组排序问题,两个配置项: alpha<按字母表排序>,method<按方法定义顺序排序>
+    operations-sorter: method

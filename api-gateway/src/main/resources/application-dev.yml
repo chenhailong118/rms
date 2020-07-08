@@ -1,0 +1,69 @@
+server:
+  port: 8080
+management:
+  server:
+    port: 9080
+
+spring:
+  application:
+    name: api-gateway
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/auth?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    username: root
+    password: root
+    #连接池及重试配置，防止mysql如果8小时自动断开连接问题
+    max-active: 100
+    min-idle: 10
+    min-evictable-idle-time-millis: 1800000
+    test-on-borrow: true
+    test-on-return: true
+    test-while-idle: true
+    validation-query: select 1
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://peer1:8666/eureka/,http://peer2:8777/eureka/
+    #api-gateway作为服务的调用者可以不注册到eureka server
+    register-with-eureka: true
+    fetch-registry: true
+
+#服务降级
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+      circuitBreaker:
+        errorThresholdPercentage: 10
+        sleepWindowInMilliseconds: 1000
+  threadpool:
+    default:
+      coreSize: 5
+      axQueueSize: 1
+      maximumSize: 10
+      allowMaximumSizeToDivergeFromCoreSize: true
+
+logbook:
+  write:
+    level: info
+  format:
+    style: http
+
+#root 日志级别以WARN级别输出
+logging:
+  level:
+    root: info
+
+feign:
+  httpclient:
+    enabled: true
+  hystrix:
+    enabled: true #开启feign的熔断功能
+ribbon:
+  eureka:
+    enabled: true

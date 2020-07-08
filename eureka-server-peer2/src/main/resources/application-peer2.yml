@@ -1,0 +1,24 @@
+server:
+  port: 8777
+
+spring:
+  application:
+    name: eureka-server
+
+eureka:
+  instance:
+    hostname: peer2
+  server:
+    #是否开启保护模式
+    enable-self-preservation: true
+    #留存的服务实例低于多少比例进入保护模式
+    renewal-percent-threshold: 0.5
+  client:
+    #是否注册eureka,多eureka实例时设置为true
+    register-with-eureka: true
+    #是否启用获取服务注册中心
+    fetch-registry: true
+    #注册和查询都需要依赖改地址，多个以逗号分隔
+    serviceUrl:
+     defaultZone: http://peer1:8666/eureka/
+
