@@ -1,5 +1,7 @@
 package com.still.aikandy.common.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.still.aikandy.mbg.model.AuthUser;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,6 +18,7 @@ import java.util.Date;
  * @Version 1.0
  */
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AuthUserDto extends AuthUser {
     public interface AddAuthUserGroup {}
 
@@ -25,10 +28,12 @@ public class AuthUserDto extends AuthUser {
 
     @ApiModelProperty(value = "密码")
     @NotNull(message = "密码不能为空", groups = {AddAuthUserGroup.class})
+    @JsonIgnore
     private String password;
 
     @ApiModelProperty(value = "确认密码")
     @NotNull(message = "确认密码不能为空", groups = {AddAuthUserGroup.class})
+    @JsonIgnore
     private String comfirmPassword;
 
     @ApiModelProperty(value = "昵称")

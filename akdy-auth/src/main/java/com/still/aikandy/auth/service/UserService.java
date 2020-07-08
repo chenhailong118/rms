@@ -80,23 +80,23 @@ public interface UserService {
      */
     AuthUser getUserByUsername(String username);
 
-//    /**
-//     * 用户登录
-//     * @param authUserLoginParam 登录参数
-//     * @return
-//     */
-//    String login(AuthUserLoginParam authUserLoginParam);
-//
-//    /**
-//     * 用户登出
-//     * @param token
-//     */
-//    void logout(String token);
-//
-//    /**
-//     * 获取用户信息
-//     * @param token
-//     * @return
-//     */
-//    Map<String,Object> getUserInfo(String token);
+    /**
+     * 用户登录
+     * @param authUserLoginParam 登录参数
+     * @return
+     */
+    String login(AuthUserLoginParam authUserLoginParam);
+
+    /**
+     * 用户登出
+     * @param token
+     */
+    void logout(String token);
+
+    /**
+     * 获取用户信息
+     * @param token
+     * @return
+     */
+    Map<String,Object> getUserInfo(String token);
 }

@@ -17,7 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -139,29 +141,29 @@ public class UserController {
         return RestResponse.error(RestCode.UNKNOWN_ERROR);
     }
 
-    //    @ApiOperation(value = "用户登录", notes = "登录以后返回token")
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    @ResponseBody
-//    public RestResponse login(@Validated @RequestBody AuthUserLoginParam authUserLoginParam) {
-//        String token = userService.login(authUserLoginParam);
-//        Map<String, String> tokenMap = new HashMap<>();
-//        tokenMap.put("token", token);
-//        tokenMap.put("tokenHead", "akdy");
-//        return RestResponse.success(tokenMap);
-//    }
-//
-//    @ApiOperation(value = "用户登出", notes = "用户登出")
-//    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-//    @ResponseBody
-//    public RestResponse logout(@RequestHeader("Authorization") String token) {
-//        userService.logout(token);
-//        return RestResponse.success(null);
-//    }
-//
-//    @ApiOperation(value = "获取当前登录用户信息")
-//    @RequestMapping(value = "/info", method = RequestMethod.GET)
-//    @ResponseBody
-//    public RestResponse getUserInfo(@RequestHeader("Authorization") String token) {
-//        return RestResponse.success(userService.getUserInfo(token));
-//    }
+    @ApiOperation(value = "用户登录", notes = "登录以后返回token")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public RestResponse login(@Validated @RequestBody AuthUserLoginParam authUserLoginParam) {
+        String token = userService.login(authUserLoginParam);
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", token);
+        tokenMap.put("tokenHead", "akdy");
+        return RestResponse.success(tokenMap);
+    }
+
+    @ApiOperation(value = "用户登出", notes = "用户登出")
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ResponseBody
+    public RestResponse logout(@RequestHeader("Authorization") String token) {
+        userService.logout(token);
+        return RestResponse.success(null);
+    }
+
+    @ApiOperation(value = "获取当前登录用户信息")
+    @RequestMapping(value = "/info", method = RequestMethod.GET)
+    @ResponseBody
+    public RestResponse getUserInfo(@RequestHeader("Authorization") String token) {
+        return RestResponse.success(userService.getUserInfo(token));
+    }
 }

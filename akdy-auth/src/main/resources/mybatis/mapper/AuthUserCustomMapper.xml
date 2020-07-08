@@ -73,7 +73,7 @@
 
   <select id="getAuthUsersByCondition" resultType="com.still.aikandy.common.dto.AuthUserDto">
     select
-     <include refid="Base_Column_List"></include>
+    <include refid="Base_Column_List"></include>
     from auth_user
     <include refid="Where"></include>
   </select>

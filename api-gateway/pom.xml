@@ -11,7 +11,6 @@
     <artifactId>api-gateway</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>api-gateway</name>
-<!--    <packaging>war</packaging>-->
     <description>aip网关</description>
 
     <dependencies>
@@ -23,11 +22,11 @@
         </dependency>
 
         <!--security-app鉴权-->
-        <dependency>
-            <groupId>com.durian.security</groupId>
-            <artifactId>security-browser</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.durian.security</groupId>-->
+<!--            <artifactId>security-browser</artifactId>-->
+<!--            <version>1.0.0-SNAPSHOT</version>-->
+<!--        </dependency>-->
         <!--公共包依赖-->
         <dependency>
             <artifactId>akdy-common</artifactId>
@@ -90,6 +89,12 @@
             <version>1.2.31</version>
         </dependency>
 
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
 
         <!--分页组件-->
         <dependency>
@@ -109,6 +114,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
     </dependencies>
 
     <build>

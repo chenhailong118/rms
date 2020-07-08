@@ -275,66 +275,66 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-//    /**
-//     * 用户登录
-//     * @param authUserLoginParam 登录参数
-//     * @return
-//     */
-//    @Override
-//    public String login(AuthUserLoginParam authUserLoginParam) {
-//        AuthUser user = getUserByUsername(authUserLoginParam.getUsername());
-//        if(user == null){
-//            throw new RestException(RestCode.USERNAME_OR_PASSWORD_WRONG);//
-//        }
-//        if(!passwordEncoder.matches(authUserLoginParam.getPassword(),user.getPassword())){
-//            throw new RestException(RestCode.USERNAME_OR_PASSWORD_WRONG);
-//        }
-//        //更新最近登录时间
-//        AuthUser updateUser = new AuthUser();
-//        updateUser.setId(user.getId());
-//        Date date = new Date();
-//        updateUser.setLoginTime(date);
-//        authUserMapper.updateByPrimaryKeySelective(updateUser);
-//
-//        Map map = new HashMap<>();
-//        map.put("username",user.getUsername());
-//        map.put("nickname",user.getNickname());
-////        map.put("roles", JSONObject.toJSONString(roleService.getAuthRoleByUserId(user.getId())));
-////        map.put("menus",JSONObject.toJSONString(menuService.getMenuBYUserId(user.getId())));
-//        map.put("icon", user.getIcon());
-//        map.put("datetime", LocalDateTime.now().toString());
-//        String token = JwtHelper.genToken(map);
-//        redisService.set(TOKEN_HEAD + user.getUsername(),token);
-//        redisService.expire(TOKEN_HEAD + user.getUsername(),30*60);//超时时间30分钟
-//        return token;
-//    }
-//
-//    /**
-//     * 用户登出
-//     * @param token
-//     */
-//    @Override
-//    public void logout(String token) {
-//        Map map = JwtHelper.verifyToken(token.replace("akdy",""));
-//        redisService.remove(TOKEN_HEAD + map.get("username"));
-//    }
-//
-//
-//    /**
-//     * 获取登录用户信息
-//     * @param token
-//     * @return
-//     */
-//    @Override
-//    public Map<String,Object> getUserInfo(String token) {
-//        if(StringUtils.isEmpty(token)){
-//            throw new RestException(RestCode.TOKEN_ERROR);
-//        }
-//        Map map = JwtHelper.verifyToken(token.replace("akdy",""));
-//        AuthUser user = getAuthUserByUsername((String) map.get("username")).get(0);
-//        map.put("roles", roleService.getAuthRoleByUserId(user.getId()));
-//        map.put("menus",menuService.getMenuBYUserId(user.getId()));
-//        map.put("imageServer",authProperties.getImageServer());
-//        return map;
-//    }
+    /**
+     * 用户登录
+     * @param authUserLoginParam 登录参数
+     * @return
+     */
+    @Override
+    public String login(AuthUserLoginParam authUserLoginParam) {
+        AuthUser user = getUserByUsername(authUserLoginParam.getUsername());
+        if(user == null){
+            throw new RestException(RestCode.USERNAME_OR_PASSWORD_WRONG);//
+        }
+        if(!passwordEncoder.matches(authUserLoginParam.getPassword(),user.getPassword())){
+            throw new RestException(RestCode.USERNAME_OR_PASSWORD_WRONG);
+        }
+        //更新最近登录时间
+        AuthUser updateUser = new AuthUser();
+        updateUser.setId(user.getId());
+        Date date = new Date();
+        updateUser.setLoginTime(date);
+        authUserMapper.updateByPrimaryKeySelective(updateUser);
+
+        Map map = new HashMap<>();
+        map.put("username",user.getUsername());
+        map.put("nickname",user.getNickname());
+//        map.put("roles", JSONObject.toJSONString(roleService.getAuthRoleByUserId(user.getId())));
+//        map.put("menus",JSONObject.toJSONString(menuService.getMenuBYUserId(user.getId())));
+        map.put("icon", user.getIcon());
+        map.put("datetime", LocalDateTime.now().toString());
+        String token = JwtHelper.genToken(map);
+        redisService.set(TOKEN_HEAD + user.getUsername(),token);
+        redisService.expire(TOKEN_HEAD + user.getUsername(),30*60);//超时时间30分钟
+        return token;
+    }
+
+    /**
+     * 用户登出
+     * @param token
+     */
+    @Override
+    public void logout(String token) {
+        Map map = JwtHelper.verifyToken(token.replace("akdy",""));
+        redisService.remove(TOKEN_HEAD + map.get("username"));
+    }
+
+
+    /**
+     * 获取登录用户信息
+     * @param token
+     * @return
+     */
+    @Override
+    public Map<String,Object> getUserInfo(String token) {
+        if(StringUtils.isEmpty(token)){
+            throw new RestException(RestCode.TOKEN_ERROR);
+        }
+        Map map = JwtHelper.verifyToken(token.replace("akdy",""));
+        AuthUser user = getAuthUserByUsername((String) map.get("username")).get(0);
+        map.put("roles", roleService.getAuthRoleByUserId(user.getId()));
+        map.put("menus",menuService.getMenuBYUserId(user.getId()));
+        map.put("imageServer",authProperties.getImageServer());
+        return map;
+    }
 }
