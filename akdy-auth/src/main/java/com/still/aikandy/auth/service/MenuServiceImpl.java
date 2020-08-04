@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.still.aikandy.auth.dao.AuthMenuCustomMapper;
 import com.still.aikandy.auth.dao.AuthRoleMenuCustomMapper;
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestException;
+import com.still.aikandy.common.api.ApiException;
+import com.still.aikandy.common.api.ResultCode;
 import com.still.aikandy.common.dto.AuthMenuDto;
 import com.still.aikandy.common.dto.AuthMenuTree;
 import com.still.aikandy.common.querycondition.AuthMenuQueryCondition;
@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 角色service实现类
- * @Date 2020/6/24 16:19
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Service
@@ -38,6 +38,64 @@ public class MenuServiceImpl implements MenuService {
         this.authRoleMenuCustomMapper = authRoleMenuCustomMapper;
     }
 
+    /**
+     * 添加菜单信息
+     * @param authMenuDto 菜单信息
+     * @return
+     */
+    @Override
+    public Integer addAuthUser(AuthMenuDto authMenuDto) {
+        //判断是否顶级菜单
+        if(authMenuDto.getParentId() != 0){
+            //非顶级菜单，判断父级菜单是否存在
+            AuthMenu parantMenu = authMenuMapper.selectByPrimaryKey(authMenuDto.getParentId());
+            if(parantMenu == null){
+                //父级菜单不存在，报错
+                throw new ApiException(ResultCode.PARENT_MENU_NOT_FOUND);
+            }else{
+                //父级菜单存在，设置本级菜单等级
+                authMenuDto.setLevel(parantMenu.getLevel() + 1);
+            }
+        }else {
+            //顶级菜单，设置本级菜单等级
+            authMenuDto.setLevel(0);
+        }
+        authMenuDto.setCreateTime(new Date());
+        return authMenuMapper.insert(authMenuDto);
+    }
+
+    /**
+     * 根据菜单ID删除菜单信息
+     * @param menuId 菜单信息
+     * @return
+     */
+    @Override
+    @Transactional
+    public Integer deleteAuthMenu(Long menuId) {
+        if(authMenuMapper.selectByPrimaryKey(menuId) == null) {
+            throw new ApiException(ResultCode.MENU_NOT_FOUND);
+        }
+
+        //删除角色菜单关系
+        authRoleMenuCustomMapper.deleteByMenuId(menuId);
+        return authMenuMapper.deleteByPrimaryKey(menuId);
+    }
+
+    /**
+     * 修改菜单信息
+     * @param menuId 菜单ID
+     * @param authMenuDto 菜单信息
+     * @return
+     */
+    @Override
+    public Integer updateAuthMenu(Long menuId, AuthMenuDto authMenuDto) {
+        if(authMenuMapper.selectByPrimaryKey(menuId) == null){
+            throw new ApiException(ResultCode.MENU_NOT_FOUND);
+        }
+        authMenuDto.setId(menuId);
+        authMenuMapper.updateByPrimaryKeySelective(authMenuDto);
+        return null;
+    }
 
     /**
      * 根据用户ID查询用户菜单
@@ -100,65 +158,6 @@ public class MenuServiceImpl implements MenuService {
                 .filter(menu -> menu.getParentId().equals(0L))
                 .map(menu -> covertMenuNode(menu, menuList)).collect(Collectors.toList());
         return result;
-    }
-
-    /**
-     * 修改菜单信息
-     * @param menuId 菜单ID
-     * @param authMenuDto 菜单信息
-     * @return
-     */
-    @Override
-    public Integer updateAuthMenu(Long menuId, AuthMenuDto authMenuDto) {
-        if(authMenuMapper.selectByPrimaryKey(menuId) == null){
-            throw new RestException(RestCode.MENU_NOT_FOUND);
-        }
-        authMenuDto.setId(menuId);
-        authMenuMapper.updateByPrimaryKeySelective(authMenuDto);
-        return null;
-    }
-
-    /**
-     * 添加菜单信息
-     * @param authMenuDto 菜单信息
-     * @return
-     */
-    @Override
-    public Integer addAuthUser(AuthMenuDto authMenuDto) {
-        //判断是否顶级菜单
-        if(authMenuDto.getParentId() != 0){
-            //非顶级菜单，判断父级菜单是否存在
-            AuthMenu parantMenu = authMenuMapper.selectByPrimaryKey(authMenuDto.getParentId());
-            if(parantMenu == null){
-                //父级菜单不存在，报错
-                throw new RestException(RestCode.PARENT_MENU_NOT_FOUND);
-            }else{
-                //父级菜单存在，设置本级菜单等级
-                authMenuDto.setLevel(parantMenu.getLevel() + 1);
-            }
-        }else {
-            //顶级菜单，设置本级菜单等级
-            authMenuDto.setLevel(0);
-        }
-        authMenuDto.setCreateTime(new Date());
-        return authMenuMapper.insert(authMenuDto);
-    }
-
-    /**
-     * 根据菜单ID删除菜单信息
-     * @param menuId 菜单信息
-     * @return
-     */
-    @Override
-    @Transactional
-    public Integer deleteAuthMenu(Long menuId) {
-        if(authMenuMapper.selectByPrimaryKey(menuId) == null) {
-            throw new RestException(RestCode.MENU_NOT_FOUND);
-        }
-
-        //删除角色菜单关系
-        authRoleMenuCustomMapper.deleteByMenuId(menuId);
-        return authMenuMapper.deleteByPrimaryKey(menuId);
     }
 
     /**

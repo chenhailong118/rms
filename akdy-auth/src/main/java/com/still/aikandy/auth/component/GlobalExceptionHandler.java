@@ -1,9 +1,9 @@
 package com.still.aikandy.auth.component;
 
 
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestException;
-import com.still.aikandy.common.api.RestResponse;
+import com.still.aikandy.common.api.ApiException;
+import com.still.aikandy.common.api.CommonResponse;
+import com.still.aikandy.common.api.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolationException;
 
+
 /**
- * @Author Lee
- * @Description TODO
- * @Date 2020/6/21 17:10
+ * @Author FishAndFlower
+ * @Description 全局统一异常处理类
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @RestControllerAdvice
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public RestResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
+    public CommonResponse methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
         //获取异常中随机一个异常信息
         BindingResult result = e.getBindingResult();
         if (result.hasErrors()) {
@@ -40,9 +41,9 @@ public class GlobalExceptionHandler {
                 errMsgBuf.append(" -> ");
                 errMsgBuf.append(fieldError.getDefaultMessage() + "; ");
             });
-            return new RestResponse(00001,"参数校验异常： " + errMsgBuf.toString());
+            return CommonResponse.error(ResultCode.ILLEGAL_PARAMS);
         }
-        return RestResponse.error(RestCode.UNKNOWN_ERROR);
+        return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
 
     /**
@@ -51,7 +52,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(BindException.class)
-    public RestResponse bindExceptionHandler(BindException e){
+    public CommonResponse bindExceptionHandler(BindException e){
         //获取异常中随机一个异常信息
         BindingResult result = e.getBindingResult();
         if (result.hasErrors()) {
@@ -62,9 +63,9 @@ public class GlobalExceptionHandler {
                 errMsgBuf.append(" -> ");
                 errMsgBuf.append(fieldError.getDefaultMessage() + "; ");
             });
-            return new RestResponse(00001,"参数校验异常： " + errMsgBuf.toString());
+            return CommonResponse.error(ResultCode.ILLEGAL_PARAMS);
         }
-        return RestResponse.error(RestCode.UNKNOWN_ERROR);
+        return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
 
     /**
@@ -73,24 +74,24 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public RestResponse constraintViolationExceptionHandler(ConstraintViolationException e){
+    public CommonResponse constraintViolationExceptionHandler(ConstraintViolationException e){
         //获取异常中第一个错误信息
         String message = e.getConstraintViolations().iterator().next().getMessage();
-        return new RestResponse(00000,message);
+        return CommonResponse.error(message);
     }
 
 
     /**
      * 自定义异常处理器
-     * @param restException
+     * @param ApiException
      * @return
      */
-    @ExceptionHandler(RestException.class)
-    public RestResponse restExceptionHandler(RestException restException){
-        if(restException.getRestCode() != null){
-            return RestResponse.error(restException.getRestCode());
+    @ExceptionHandler(ApiException.class)
+    public CommonResponse ApiExceptionHandler(ApiException ApiException){
+        if(ApiException.getResultCode() != null){
+            return CommonResponse.error(ApiException.getResultCode());
         }
-        return RestResponse.error(RestCode.UNKNOWN_ERROR);
+        return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
 
     /**
@@ -99,8 +100,8 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(Exception.class)
-    public RestResponse unknownExceptionHandler(Exception e){
+    public CommonResponse unknownExceptionHandler(Exception e){
         e.printStackTrace();
-        return RestResponse.error(RestCode.UNKNOWN_ERROR);
+        return CommonResponse.error(e.getMessage());
     }
 }

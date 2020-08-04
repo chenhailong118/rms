@@ -4,8 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.still.aikandy.auth.dao.AuthResourceCategoryCustomMapper;
 import com.still.aikandy.auth.dao.AuthResourceCustomMapper;
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestException;
+import com.still.aikandy.common.api.ResultCode;
+import com.still.aikandy.common.api.ApiException;
 import com.still.aikandy.common.dto.AuthResourceCategoryDto;
 import com.still.aikandy.common.querycondition.AuthResourceCategoryQueryCondition;
 import com.still.aikandy.mbg.mapper.AuthResourceCategoryMapper;
@@ -16,9 +16,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 资源service实现类
- * @Date 2020/6/24 16:19
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Service
@@ -87,7 +87,7 @@ public class ResourceCategoryServiceImpl implements ResourceCategoryService {
     @Override
     public Integer updateAuthResourceCategory(Long id, AuthResourceCategoryDto authResourceCategoryDto) {
         if(authResourceCategoryMapper.selectByPrimaryKey(id) == null){
-            throw new RestException(RestCode.RESOURCE_CATEGORY_NOT_FOUND);
+            throw new ApiException(ResultCode.RESOURCE_CATEGORY_NOT_FOUND);
         }
         authResourceCategoryDto.setId(id);
         return authResourceCategoryMapper.updateByPrimaryKeySelective(authResourceCategoryDto);
@@ -102,7 +102,7 @@ public class ResourceCategoryServiceImpl implements ResourceCategoryService {
     @Transactional
     public Integer deleteAuthResourceCategory(Long id) {
         if(authResourceCategoryMapper.selectByPrimaryKey(id) == null){
-            throw new RestException(RestCode.RESOURCE_CATEGORY_NOT_FOUND);
+            throw new ApiException(ResultCode.RESOURCE_CATEGORY_NOT_FOUND);
         }
         //删除资源数据
         authResourceCustomMapper.deleteByCategoryId(id);

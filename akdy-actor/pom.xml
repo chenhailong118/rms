@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.still.aikandy</groupId>
         <artifactId>aikandy</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>com.still.aikandy</groupId>
@@ -65,7 +65,7 @@
         <dependency>
             <artifactId>akdy-common</artifactId>
             <groupId>com.still.aikandy</groupId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0.0-SNAPSHOT</version>
         </dependency>
 
         <!--mbg模块-->

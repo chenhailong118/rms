@@ -78,4 +78,24 @@
     <include refid="Where"></include>
   </select>
 
+  <select id="getResourcesByUserId" resultType="com.still.aikandy.mbg.model.AuthResource">
+    SELECT
+        are.id id,
+        are.create_time createTime,
+        are.`name` `name`,
+        are.url url,
+        are.description description,
+        are.category_id categoryId
+    FROM
+        auth_user_role aur
+    LEFT JOIN auth_role ar ON aur.role_id = ar.id
+    LEFT JOIN auth_role_resource arr ON ar.id = arr.role_id
+    LEFT JOIN auth_resource are ON are.id = arr.resource_id
+    WHERE
+        aur.user_id = #{userId}
+    AND are.id IS NOT NULL
+    GROUP BY
+        are.id
+  </select>
+
 </mapper>

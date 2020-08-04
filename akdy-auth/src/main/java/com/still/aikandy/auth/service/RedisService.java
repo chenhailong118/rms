@@ -1,13 +1,13 @@
 package com.still.aikandy.auth.service;
 
+
 /**
- * @Author Lee
- * @Description Redis Service 对象和数组都以json形式进行存储
- * @Date 2020/7/1 10:06
+ * @Author FishAndFlower
+ * @Description redis操作Service,对象和数组都以json形式进行存储
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface RedisService {
-
     /**
      * 存储数据
      */

@@ -7,8 +7,8 @@ import com.still.aikandy.auth.dao.AuthRoleCustomMapper;
 import com.still.aikandy.auth.dao.AuthRoleMenuCustomMapper;
 import com.still.aikandy.auth.dao.AuthRoleResourceCustomMapper;
 import com.still.aikandy.auth.dao.AuthUserRoleCustomMapper;
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestException;
+import com.still.aikandy.common.api.ResultCode;
+import com.still.aikandy.common.api.ApiException;
 import com.still.aikandy.common.dto.AuthRoleDto;
 import com.still.aikandy.common.querycondition.AuthRoleQueryCondition;
 import com.still.aikandy.mbg.mapper.AuthRoleMapper;
@@ -20,10 +20,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 角色service实现类
- * @Date 2020/6/24 16:19
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Service
@@ -143,7 +144,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Integer updateAuthRole(Long roleId, AuthRoleDto authRoleDto) {
         if(authRoleMapper.selectByPrimaryKey(roleId) == null){
-            throw new RestException(RestCode.ROLE_NOT_FOUND);
+            throw new ApiException(ResultCode.ROLE_NOT_FOUND);
         }
         authRoleDto.setId(roleId);
         return authRoleMapper.updateByPrimaryKeySelective(authRoleDto);

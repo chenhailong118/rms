@@ -6,6 +6,12 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
+/**
+ * @Author FishAndFlower
+ * @Description 定时任务配置
+ * @Date 2020/8/4 10:51
+ * @Version 1.0
+ */
 @Configuration
 @EnableScheduling
 public class SchedulerConfig {

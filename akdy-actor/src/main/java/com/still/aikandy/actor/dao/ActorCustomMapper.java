@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 演员自定义Mapper接口
- * @Date 2020/5/23 22:31
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Repository

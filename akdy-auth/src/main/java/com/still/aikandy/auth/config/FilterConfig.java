@@ -5,10 +5,11 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 /**
- * @Author Lee
- * @Description 拦截器配置
- * @Date 2020/5/27 21:45
+ * @Author FishAndFlower
+ * @Description 过滤器配置
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Configuration
@@ -16,8 +17,9 @@ public class FilterConfig {
 
     /**
      * 配置跨域拦截器，允许跨域请求
+     * 如果通过网关调用则注释掉此处的跨域，直接在网关里配置就行
      */
-    @Bean
+//    @Bean
     public FilterRegistrationBean CorsFilterRegister(){
         FilterRegistrationBean registration = new FilterRegistrationBean();
         //注入过滤器

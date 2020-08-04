@@ -7,9 +7,9 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 菜单传输对象
- * @Date 2020/6/24 22:56
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

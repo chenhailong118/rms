@@ -7,13 +7,14 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author Lee
- * @Description Redis Service 对象和数组都以json形式进行存储
- * @Date 2020/7/1 10:07
+ * @Author FishAndFlower
+ * @Description redis操作Service的实现类
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Service
 public class RedisServiceImpl implements RedisService {
+
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 

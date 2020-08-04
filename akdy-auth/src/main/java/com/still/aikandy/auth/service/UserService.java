@@ -5,6 +5,7 @@ import com.still.aikandy.common.dto.AuthUserDto;
 import com.still.aikandy.common.dto.AuthUserLoginParam;
 import com.still.aikandy.common.dto.UrlsDto;
 import com.still.aikandy.common.querycondition.AuthUserQueryCondition;
+import com.still.aikandy.mbg.model.AuthResource;
 import com.still.aikandy.mbg.model.AuthUser;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,10 +13,11 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 用户Service接口
- * @Date 2020/6/22 17:52
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface UserService {
@@ -99,4 +101,11 @@ public interface UserService {
      * @return
      */
     Map<String,Object> getUserInfo(String token);
+
+    /**
+     * 根据用户ID获取用户资源列表
+     * @param userId
+     * @return
+     */
+    List<AuthResource> getResourcesByUserId(Long userId);
 }

@@ -11,10 +11,11 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 用户传输对象
- * @Date 2020/6/22 21:33
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

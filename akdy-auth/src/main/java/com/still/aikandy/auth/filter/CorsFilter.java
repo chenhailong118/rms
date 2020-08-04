@@ -5,9 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 跨域过滤器
- * @Date 2020/5/27 21:34
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public class CorsFilter implements Filter {

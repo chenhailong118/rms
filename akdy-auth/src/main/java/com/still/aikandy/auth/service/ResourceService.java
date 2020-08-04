@@ -5,13 +5,14 @@ import com.still.aikandy.common.dto.AuthMenuDto;
 import com.still.aikandy.common.dto.AuthResourceDto;
 import com.still.aikandy.common.querycondition.AuthMenuQueryCondition;
 import com.still.aikandy.common.querycondition.AuthResourceQueryCondition;
+import com.still.aikandy.mbg.model.AuthResource;
 
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 资源Service接口
- * @Date 2020/6/24 16:18
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface ResourceService {

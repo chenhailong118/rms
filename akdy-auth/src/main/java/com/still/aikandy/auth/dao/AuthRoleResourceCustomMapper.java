@@ -1,15 +1,13 @@
 package com.still.aikandy.auth.dao;
 
-import com.still.aikandy.mbg.model.AuthRoleMenu;
 import com.still.aikandy.mbg.model.AuthRoleResource;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 角色资源关系角色接口
- * @Date 2020/6/26 10:50
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface AuthRoleResourceCustomMapper {

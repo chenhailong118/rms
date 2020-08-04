@@ -3,8 +3,8 @@ package com.still.aikandy.auth.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.still.aikandy.auth.dao.AuthResourceCustomMapper;
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestException;
+import com.still.aikandy.common.api.ResultCode;
+import com.still.aikandy.common.api.ApiException;
 import com.still.aikandy.common.dto.AuthResourceDto;
 import com.still.aikandy.common.querycondition.AuthResourceQueryCondition;
 import com.still.aikandy.mbg.mapper.AuthResourceMapper;
@@ -14,9 +14,9 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 资源service实现类
- * @Date 2020/6/24 16:19
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Service
@@ -87,7 +87,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public Integer updateAuthResource(Long id, AuthResourceDto authResourceDto) {
         if(authResourceMapper.selectByPrimaryKey(id) == null) {
-            throw new RestException(RestCode.RESOURCE_NOT_FOUND);
+            throw new ApiException(ResultCode.RESOURCE_NOT_FOUND);
         }
         authResourceDto.setId(id);
         return authResourceMapper.updateByPrimaryKeySelective(authResourceDto);
@@ -101,7 +101,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public Integer deleteAuthResource(Long id) {
         if(authResourceMapper.selectByPrimaryKey(id) == null){
-            throw new RestException(RestCode.RESOURCE_NOT_FOUND);
+            throw new ApiException(ResultCode.RESOURCE_NOT_FOUND);
         }
         return authResourceMapper.deleteByPrimaryKey(id);
     }

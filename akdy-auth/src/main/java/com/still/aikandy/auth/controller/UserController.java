@@ -1,12 +1,12 @@
 package com.still.aikandy.auth.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.still.aikandy.auth.config.AuthProperties;
+import com.still.aikandy.auth.component.AuthProperties;
 import com.still.aikandy.auth.service.MenuService;
 import com.still.aikandy.auth.service.RoleService;
 import com.still.aikandy.auth.service.UserService;
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestResponse;
+import com.still.aikandy.common.api.ResultCode;
+import com.still.aikandy.common.api.CommonResponse;
 import com.still.aikandy.common.dto.*;
 import com.still.aikandy.common.querycondition.AuthUserQueryCondition;
 import io.swagger.annotations.*;
@@ -17,21 +17,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 用户
- * @Date 2020/6/22 17:48
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 
 @Slf4j
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth/user")
 @Api(value = "用户", description = "用户API")
 @Validated
 public class UserController {
@@ -56,9 +53,9 @@ public class UserController {
      */
     @ApiOperation(value = "添加用户信息",notes = "添加用户信息")
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public RestResponse<Integer> addUser(@RequestBody @Validated(AuthUserDto.AddAuthUserGroup.class) AuthUserDto authUserDto) throws IOException {
+    public CommonResponse<Integer> addUser(@RequestBody @Validated(AuthUserDto.AddAuthUserGroup.class) AuthUserDto authUserDto) throws IOException {
         Integer count = userService.addAuthUser(authUserDto);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -69,9 +66,9 @@ public class UserController {
     @ApiOperation(value = "删除用户信息",notes = "删除用户信息")
     @ApiImplicitParam(name = "userId", value = "用户id")
     @RequestMapping(value = "/{userId}",method = RequestMethod.DELETE)
-    public RestResponse<Integer> deleteUser(@PathVariable(value = "userId") Long userId){
+    public CommonResponse<Integer> deleteUser(@PathVariable(value = "userId") Long userId){
         Integer count = userService.deleteAuthUser(userId);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -83,9 +80,9 @@ public class UserController {
     @ApiOperation(value = "修改用户信息",notes = "修改用户信息")
     @ApiImplicitParam(name = "userId", value = "用户id")
     @RequestMapping(value = "/{userId}",method = RequestMethod.PUT)
-    public RestResponse<Integer> editUser(@NotNull @PathVariable(value = "userId") Long userId, @RequestBody AuthUserDto authUserDto){
+    public CommonResponse<Integer> editUser(@NotNull @PathVariable(value = "userId") Long userId, @RequestBody AuthUserDto authUserDto){
         Integer count = userService.updateAuthUser(userId,authUserDto);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -101,11 +98,11 @@ public class UserController {
             @ApiImplicitParam(name = "pageSize", value = "每页记录数", dataType = "Integer")
     })
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public RestResponse<PageInfo<List<AuthUserDto>>> queryUsers(
+    public CommonResponse<PageInfo<List<AuthUserDto>>> queryUsers(
             AuthUserQueryCondition authUserQueryCondition,
             @RequestParam(value = "pageNum",required = false) Integer pageNum,
             @RequestParam(value = "pageSize",required = false) Integer pageSize){
-        return RestResponse.success(userService.queryAuthUsers(authUserQueryCondition, pageNum, pageSize));
+        return CommonResponse.success(userService.queryAuthUsers(authUserQueryCondition, pageNum, pageSize));
     }
 
     /**
@@ -116,8 +113,8 @@ public class UserController {
     @ApiOperation(value = "用户头像上传",notes = "创建用户前，先提交头像信息")
     @ApiParam(name = "file", value = "用户头像",required = true)
     @RequestMapping(value = "icon",method = RequestMethod.POST)
-    public RestResponse<String> iconUpload(@RequestParam("file") MultipartFile icon){
-        return RestResponse.success(userService.iconUpload(icon));
+    public CommonResponse<String> iconUpload(@RequestParam("file") MultipartFile icon){
+        return CommonResponse.success(userService.iconUpload(icon));
     }
 
     /**
@@ -126,44 +123,18 @@ public class UserController {
      */
     @ApiOperation(value = "获取URLS",notes = "获取URLS")
     @GetMapping(value = "urls")
-    public RestResponse<UrlsDto> getPostIconUrl(){
-        return RestResponse.success(userService.getUrls());
+    public CommonResponse<UrlsDto> getPostIconUrl(){
+        return CommonResponse.success(userService.getUrls());
     }
 
 
     @ApiOperation("分配用户角色")
     @PostMapping("/role/update")
-    public RestResponse<Integer> updateUserRole(AuthUserRoleDto authUserRoleDto){
+    public CommonResponse<Integer> updateUserRole(AuthUserRoleDto authUserRoleDto){
         int count = userService.updateUserRole(authUserRoleDto.getUserId(), authUserRoleDto.getRoleIds());
         if (count >= 0) {
-            return RestResponse.success(count);
+            return CommonResponse.success(count);
         }
-        return RestResponse.error(RestCode.UNKNOWN_ERROR);
-    }
-
-    @ApiOperation(value = "用户登录", notes = "登录以后返回token")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public RestResponse login(@Validated @RequestBody AuthUserLoginParam authUserLoginParam) {
-        String token = userService.login(authUserLoginParam);
-        Map<String, String> tokenMap = new HashMap<>();
-        tokenMap.put("token", token);
-        tokenMap.put("tokenHead", "akdy");
-        return RestResponse.success(tokenMap);
-    }
-
-    @ApiOperation(value = "用户登出", notes = "用户登出")
-    @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    @ResponseBody
-    public RestResponse logout(@RequestHeader("Authorization") String token) {
-        userService.logout(token);
-        return RestResponse.success(null);
-    }
-
-    @ApiOperation(value = "获取当前登录用户信息")
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @ResponseBody
-    public RestResponse getUserInfo(@RequestHeader("Authorization") String token) {
-        return RestResponse.success(userService.getUserInfo(token));
+        return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
 }

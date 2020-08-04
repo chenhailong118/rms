@@ -10,9 +10,9 @@ import javax.validation.constraints.*;
 import java.util.Date;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 演员传输对象
- * @Date 2020/6/21 15:55
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

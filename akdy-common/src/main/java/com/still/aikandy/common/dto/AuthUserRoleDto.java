@@ -8,10 +8,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 用户角色关系传输对象
- * @Date 2020/6/25 14:42
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

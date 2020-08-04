@@ -9,10 +9,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
- * @Author Lee
- * @Description TODO
- * @Date 2020/2/26 17:10
+ * @Author FishAndFlower
+ * @Description 自定义注释生成器
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public class Generator {

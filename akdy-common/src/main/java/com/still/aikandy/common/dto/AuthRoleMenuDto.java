@@ -7,9 +7,9 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 角色菜单关系传输对象
- * @Date 2020/6/26 10:34
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

@@ -5,9 +5,9 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 用户登录参数
- * @Date 2020/6/23 13:39
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

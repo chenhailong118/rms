@@ -1,16 +1,14 @@
 package com.still.aikandy.auth.dao;
 
-import com.still.aikandy.common.dto.AuthMenuDto;
 import com.still.aikandy.common.dto.AuthResourceDto;
-import com.still.aikandy.common.querycondition.AuthMenuQueryCondition;
 import com.still.aikandy.common.querycondition.AuthResourceQueryCondition;
 
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 资源接口
- * @Date 2020/6/24 23:48
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface AuthResourceCustomMapper {

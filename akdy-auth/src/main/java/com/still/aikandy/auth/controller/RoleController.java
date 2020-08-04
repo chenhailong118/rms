@@ -2,8 +2,8 @@ package com.still.aikandy.auth.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.still.aikandy.auth.service.RoleService;
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestResponse;
+import com.still.aikandy.common.api.ResultCode;
+import com.still.aikandy.common.api.CommonResponse;
 import com.still.aikandy.common.dto.*;
 import com.still.aikandy.common.querycondition.AuthRoleQueryCondition;
 import io.swagger.annotations.*;
@@ -15,15 +15,16 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 角色
- * @Date 2020/6/22 17:48
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 
+
 @Slf4j
 @RestController
-@RequestMapping("/role")
+@RequestMapping("/auth/role")
 @Api(value = "角色", description = "角色API")
 @Validated
 public class RoleController {
@@ -41,9 +42,9 @@ public class RoleController {
      */
     @ApiOperation(value = "添加角色信息",notes = "添加角色信息")
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public RestResponse<Integer> addRole(@Validated(AuthRoleDto.AddAuthRoleGroup.class) @RequestBody AuthRoleDto authRoleDto){
+    public CommonResponse<Integer> addRole(@Validated(AuthRoleDto.AddAuthRoleGroup.class) @RequestBody AuthRoleDto authRoleDto){
         Integer count = roleService.addAuthRole(authRoleDto);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -54,9 +55,9 @@ public class RoleController {
     @ApiOperation(value = "删除角色信息",notes = "删除角色信息")
     @ApiImplicitParam(name = "roleId", value = "角色id")
     @RequestMapping(value = "/{roleId}",method = RequestMethod.DELETE)
-    public RestResponse<Integer> deleteRole(@PathVariable(value = "roleId") Long roleId){
+    public CommonResponse<Integer> deleteRole(@PathVariable(value = "roleId") Long roleId){
         Integer count = roleService.deleteAuthRole(roleId);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -68,9 +69,9 @@ public class RoleController {
     @ApiOperation(value = "修改角色信息",notes = "修改角色信息")
     @ApiImplicitParam(name = "roleId", value = "角色id")
     @RequestMapping(value = "/{roleId}",method = RequestMethod.PUT)
-    public RestResponse<Integer> editRole(@NotNull @PathVariable(value = "roleId") Long roleId, AuthRoleDto authRoleDto){
+    public CommonResponse<Integer> editRole(@NotNull @PathVariable(value = "roleId") Long roleId, AuthRoleDto authRoleDto){
         Integer count = roleService.updateAuthRole(roleId,authRoleDto);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -86,11 +87,11 @@ public class RoleController {
             @ApiImplicitParam(name = "pageSize", value = "每页记录数", dataType = "Integer")
     })
     @GetMapping(value = "")
-    public RestResponse<PageInfo<List<AuthRoleDto>>> queryActors(
+    public CommonResponse<PageInfo<List<AuthRoleDto>>> queryActors(
             AuthRoleQueryCondition authRoleQueryCondition,
             @RequestParam(value = "pageNum") Integer pageNum,
             @RequestParam(value = "pageSize") Integer pageSize){
-        return RestResponse.success(roleService.queryAuthRoles(authRoleQueryCondition, pageNum, pageSize));
+        return CommonResponse.success(roleService.queryAuthRoles(authRoleQueryCondition, pageNum, pageSize));
     }
 
     /**
@@ -100,8 +101,8 @@ public class RoleController {
      */
     @ApiOperation(value = "获取角色列表（ALL）", notes = "根据条件查询角色分页列表")
     @GetMapping(value = "all")
-    public RestResponse<List<AuthRoleDto>> queryActors(AuthRoleQueryCondition authRoleQueryCondition){
-        return RestResponse.success(roleService.queryAuthRoles(authRoleQueryCondition));
+    public CommonResponse<List<AuthRoleDto>> queryActors(AuthRoleQueryCondition authRoleQueryCondition){
+        return CommonResponse.success(roleService.queryAuthRoles(authRoleQueryCondition));
     }
 
     /**
@@ -111,27 +112,27 @@ public class RoleController {
     @ApiOperation(value = "获取角色列表", notes = "根据用户ID查询角色列表")
     @ApiParam(name = "userId", value = "用户ID",type = "Long")
     @GetMapping(value = "{userId}")
-    public RestResponse<List<AuthRoleDto>> getAuthRoleByUserId(@PathVariable Long userId){
-        return RestResponse.success(roleService.getAuthRoleByUserId(userId));
+    public CommonResponse<List<AuthRoleDto>> getAuthRoleByUserId(@PathVariable Long userId){
+        return CommonResponse.success(roleService.getAuthRoleByUserId(userId));
     }
 
     @ApiOperation("给角色分配菜单")
     @PostMapping("/allocMenu")
-    public RestResponse allocMenu(AuthRoleMenuDto authRoleMenuDto){
+    public CommonResponse allocMenu(AuthRoleMenuDto authRoleMenuDto){
         int count = roleService.updateRoleMenus(authRoleMenuDto.getRoleId(), authRoleMenuDto.getMenuIds());
         if (count >= 0) {
-            return RestResponse.success(count);
+            return CommonResponse.success(count);
         }
-        return RestResponse.error(RestCode.UNKNOWN_ERROR);
+        return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
 
     @ApiOperation("给角色分配资源")
     @PostMapping("/allocResource")
-    public RestResponse allocMenu(AuthRoleResourceDto authRoleResourceDto){
+    public CommonResponse allocMenu(AuthRoleResourceDto authRoleResourceDto){
         int count = roleService.updateRoleResource(authRoleResourceDto.getRoleId(), authRoleResourceDto.getResourceIds());
         if (count >= 0) {
-            return RestResponse.success(count);
+            return CommonResponse.success(count);
         }
-        return RestResponse.error(RestCode.UNKNOWN_ERROR);
+        return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
 }

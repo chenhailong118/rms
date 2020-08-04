@@ -1,5 +1,6 @@
 package com.still.aikandy.auth.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -11,13 +12,14 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description swagger2的配置内容仅仅就是需要创建一个Docket实例
- * @Date 2020/5/22 20:37
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Configuration
 @EnableSwagger2
+@EnableKnife4j
 public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {

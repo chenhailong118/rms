@@ -2,10 +2,11 @@ package com.still.aikandy.common.dto;
 
 import lombok.Data;
 
+
 /**
- * @Author Lee
- * @Description TODO
- * @Date 2020/6/28 17:54
+ * @Author FishAndFlower
+ * @Description urls传输对象
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

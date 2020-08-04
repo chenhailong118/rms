@@ -6,9 +6,9 @@ import lombok.Data;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 菜单树形结构对象
- * @Date 2020/6/26 16:23
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

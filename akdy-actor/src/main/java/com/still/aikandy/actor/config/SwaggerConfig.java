@@ -10,10 +10,11 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description swagger2的配置内容仅仅就是需要创建一个Docket实例
- * @Date 2020/5/22 20:37
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Configuration

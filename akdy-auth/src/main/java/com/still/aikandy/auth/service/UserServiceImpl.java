@@ -1,15 +1,13 @@
 package com.still.aikandy.auth.service;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.system.UserInfo;
-import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.still.aikandy.auth.config.AuthProperties;
+import com.still.aikandy.auth.component.AuthProperties;
 import com.still.aikandy.auth.dao.AuthUserCustomMapper;
 import com.still.aikandy.auth.dao.AuthUserRoleCustomMapper;
-import com.still.aikandy.common.api.RestCode;
-import com.still.aikandy.common.api.RestException;
+import com.still.aikandy.common.api.ResultCode;
+import com.still.aikandy.common.api.ApiException;
 import com.still.aikandy.common.dto.AuthUserDto;
 import com.still.aikandy.common.dto.AuthUserLoginParam;
 import com.still.aikandy.common.dto.UrlsDto;
@@ -17,6 +15,7 @@ import com.still.aikandy.common.querycondition.AuthUserQueryCondition;
 import com.still.aikandy.common.utils.FileUtil;
 import com.still.aikandy.common.utils.JwtHelper;
 import com.still.aikandy.mbg.mapper.AuthUserMapper;
+import com.still.aikandy.mbg.model.AuthResource;
 import com.still.aikandy.mbg.model.AuthUser;
 import com.still.aikandy.mbg.model.AuthUserRole;
 import org.apache.commons.lang.StringUtils;
@@ -30,9 +29,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 用户Service实现类
- * @Date 2020/6/22 17:53
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Service
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
     private final AuthProperties authProperties;
 
-    private static final String TOKEN_HEAD = "token:";
+    private String TOKEN_HEAD = "akdy";
 
 
     public UserServiceImpl(AuthUserMapper authUserMapper, AuthUserCustomMapper authUserCustomMapper, AuthUserRoleCustomMapper authUserRoleCustomMapper, RoleService roleService, RedisService redisService, MenuService menuService, PasswordEncoder passwordEncoder, AuthProperties authProperties) {
@@ -72,7 +71,7 @@ public class UserServiceImpl implements UserService {
     public Integer addAuthUser(AuthUserDto authUserDto) throws IOException {
         //密码校验
         if(!StringUtils.equalsIgnoreCase(authUserDto.getPassword(),authUserDto.getComfirmPassword())){
-            throw new RestException(RestCode.PWD_NOT_EQUALS_COMPWD);
+            throw new ApiException(ResultCode.PWD_NOT_EQUALS_COMPWD);
         }
         check(authUserDto);
         //判断有没有头像字段
@@ -96,7 +95,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Integer deleteAuthUser(Long userId) {
         if(authUserMapper.selectByPrimaryKey(userId) == null){
-            throw new RestException(RestCode.USER_NOT_FOUND);
+            throw new ApiException(ResultCode.USER_NOT_FOUND);
         }
         //删除用户角色关系表
         authUserRoleCustomMapper.deleteByUserId(userId);
@@ -117,7 +116,7 @@ public class UserServiceImpl implements UserService {
         if(!StringUtils.isEmpty(authUserDto.getPassword()) && !StringUtils.isEmpty(authUserDto.getComfirmPassword())){
             //用户密码和确认密码是否一致
             if(!StringUtils.equals(authUserDto.getPassword(),authUserDto.getComfirmPassword())){
-                throw new RestException(RestCode.PWD_NOT_EQUALS_COMPWD);
+                throw new ApiException(ResultCode.PWD_NOT_EQUALS_COMPWD);
             }else{
                 //密码加密
                 authUserDto.setPassword(passwordEncoder.encode(authUserDto.getPassword()));
@@ -158,7 +157,7 @@ public class UserServiceImpl implements UserService {
         try {
             return authProperties.getIconPath() + FileUtil.saveToLocal(icon,authProperties.getBasePath() + authProperties.getIconPath());
         } catch (IOException e) {
-            throw new RestException(RestCode.ICON_PARSE_WRONG);
+            throw new ApiException(ResultCode.ICON_PARSE_WRONG);
         }
     }
 
@@ -263,15 +262,15 @@ public class UserServiceImpl implements UserService {
     private void check(AuthUserDto authUserDto) {
         //用户名校验
         if(authUserDto.getUsername() != null && !CollectionUtil.isEmpty(getAuthUserByUsername(authUserDto.getUsername()))){
-            throw new RestException(RestCode.USER_EXIST);
+            throw new ApiException(ResultCode.USER_EXIST);
         }
         //校验手机号码
         if(authUserDto.getPhone() != null && !CollectionUtil.isEmpty(getAuthUserByPhone(authUserDto.getPhone()))){
-            throw new RestException(RestCode.PHONE_EXIST);
+            throw new ApiException(ResultCode.PHONE_EXIST);
         }
         //校验邮箱
         if(authUserDto.getEmail() != null && !CollectionUtil.isEmpty(getAuthUserByEmail(authUserDto.getEmail()))){
-            throw new RestException(RestCode.EMAIL_EXIST);
+            throw new ApiException(ResultCode.EMAIL_EXIST);
         }
     }
 
@@ -284,10 +283,10 @@ public class UserServiceImpl implements UserService {
     public String login(AuthUserLoginParam authUserLoginParam) {
         AuthUser user = getUserByUsername(authUserLoginParam.getUsername());
         if(user == null){
-            throw new RestException(RestCode.USERNAME_OR_PASSWORD_WRONG);//
+            throw new ApiException(ResultCode.USERNAME_OR_PASSWORD_WRONG);//
         }
         if(!passwordEncoder.matches(authUserLoginParam.getPassword(),user.getPassword())){
-            throw new RestException(RestCode.USERNAME_OR_PASSWORD_WRONG);
+            throw new ApiException(ResultCode.USERNAME_OR_PASSWORD_WRONG);
         }
         //更新最近登录时间
         AuthUser updateUser = new AuthUser();
@@ -328,13 +327,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public Map<String,Object> getUserInfo(String token) {
         if(StringUtils.isEmpty(token)){
-            throw new RestException(RestCode.TOKEN_ERROR);
+            throw new ApiException(ResultCode.TOKEN_ERROR);
         }
-        Map map = JwtHelper.verifyToken(token.replace("akdy",""));
+        Map map = JwtHelper.verifyToken(token.replace(TOKEN_HEAD,""));
         AuthUser user = getAuthUserByUsername((String) map.get("username")).get(0);
         map.put("roles", roleService.getAuthRoleByUserId(user.getId()));
         map.put("menus",menuService.getMenuBYUserId(user.getId()));
         map.put("imageServer",authProperties.getImageServer());
         return map;
+    }
+
+
+    /**
+     * 根据用户ID获取用户资源列表
+     * @param userId
+     * @return
+     */
+    public List<AuthResource> getResourcesByUserId(Long userId){
+        return authUserCustomMapper.getResourcesByUserId(userId);
     }
 }

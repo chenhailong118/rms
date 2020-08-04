@@ -2,7 +2,7 @@ package com.still.aikandy.auth.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.still.aikandy.auth.service.ResourceService;
-import com.still.aikandy.common.api.RestResponse;
+import com.still.aikandy.common.api.CommonResponse;
 import com.still.aikandy.common.dto.AuthResourceCategoryDto;
 import com.still.aikandy.common.dto.AuthResourceDto;
 import com.still.aikandy.common.querycondition.AuthResourceQueryCondition;
@@ -15,15 +15,15 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 资源
- * @Date 2020/6/22 17:48
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 
 @Slf4j
 @RestController
-@RequestMapping("/resource")
+@RequestMapping("/auth/resource")
 @Api(value = "资源", description = "资源API")
 @Validated
 public class ResourceController {
@@ -41,9 +41,9 @@ public class ResourceController {
      */
     @ApiOperation(value = "添加资源信息",notes = "添加资源信息")
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public RestResponse<Integer> addResource(@Validated(AuthResourceDto.AddAuthResourceGroup.class) @RequestBody AuthResourceDto authResourceDto){
+    public CommonResponse<Integer> addResource(@Validated(AuthResourceDto.AddAuthResourceGroup.class) @RequestBody AuthResourceDto authResourceDto){
         Integer count = resourceService.addAuthResource(authResourceDto);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -55,9 +55,9 @@ public class ResourceController {
     @ApiOperation(value = "修改资源信息",notes = "修改资源信息")
     @ApiImplicitParam(name = "id", value = "资源id")
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public RestResponse<Integer> editResource(@NotNull(message = "id不能为空") @PathVariable(value = "id") Long id, AuthResourceDto authResourceDto){
+    public CommonResponse<Integer> editResource(@NotNull(message = "id不能为空") @PathVariable(value = "id") Long id, AuthResourceDto authResourceDto){
         Integer count = resourceService.updateAuthResource(id,authResourceDto);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -68,9 +68,9 @@ public class ResourceController {
     @ApiOperation(value = "删除资源信息",notes = "删除资源信息")
     @ApiImplicitParam(name = "id", value = "资源id")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    public RestResponse<Integer> deleteResource(@PathVariable(value = "id") Long id){
+    public CommonResponse<Integer> deleteResource(@PathVariable(value = "id") Long id){
         Integer count = resourceService.deleteAuthResource(id);
-        return RestResponse.success(count);
+        return CommonResponse.success(count);
     }
 
     /**
@@ -86,11 +86,11 @@ public class ResourceController {
             @ApiImplicitParam(name = "pageSize", value = "每页记录数", dataType = "Integer")
     })
     @GetMapping(value = "")
-    public RestResponse<PageInfo<List<AuthResourceDto>>> queryResources(
+    public CommonResponse<PageInfo<List<AuthResourceDto>>> queryResources(
             AuthResourceQueryCondition authResourceQueryCondition,
             @RequestParam(value = "pageNum",required = false) Integer pageNum,
             @RequestParam(value = "pageSize",required = false) Integer pageSize){
-        return RestResponse.success(resourceService.queryAuthResources(authResourceQueryCondition, pageNum, pageSize));
+        return CommonResponse.success(resourceService.queryAuthResources(authResourceQueryCondition, pageNum, pageSize));
     }
 
     /**
@@ -100,9 +100,9 @@ public class ResourceController {
      */
     @ApiOperation(value = "获取资源列表（ALL）", notes = "根据条件查询资源信息")
     @GetMapping(value = "all")
-    public RestResponse<List<AuthResourceDto>> queryResources(
+    public CommonResponse<List<AuthResourceDto>> queryResources(
             AuthResourceQueryCondition authResourceQueryCondition){
-        return RestResponse.success(resourceService.queryAuthResources(authResourceQueryCondition));
+        return CommonResponse.success(resourceService.queryAuthResources(authResourceQueryCondition));
     }
 
     /**
@@ -112,7 +112,7 @@ public class ResourceController {
     @ApiOperation(value = "获取资源列表", notes = "根据角色ID查询资源列表")
     @ApiParam(name = "roleId", value = "角色ID",type = "Long")
     @GetMapping(value = "{roleId}")
-    public RestResponse<List<AuthResourceDto>> getAuthResourceaByRoleId(@PathVariable Long roleId){
-        return RestResponse.success(resourceService.getAuthResourceaByRoleId(roleId));
+    public CommonResponse<List<AuthResourceDto>> getAuthResourceaByRoleId(@PathVariable Long roleId){
+        return CommonResponse.success(resourceService.getAuthResourceaByRoleId(roleId));
     }
 }

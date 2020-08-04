@@ -3,10 +3,10 @@ package com.still.aikandy.actor.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.still.aikandy.actor.dao.ActorCustomMapper;
-import com.still.aikandy.common.api.RestException;
+import com.still.aikandy.common.api.ApiException;
 import com.still.aikandy.common.dto.ActorDto;
 import com.still.aikandy.common.querycondition.ActorQueryCondition;
-import com.still.aikandy.common.api.RestCode;
+import com.still.aikandy.common.api.ResultCode;
 import com.still.aikandy.mbg.mapper.ActorMapper;
 import com.still.aikandy.mbg.model.Actor;
 import org.springframework.stereotype.Service;
@@ -15,9 +15,9 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 演员
- * @Date 2020/5/22 21:41
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Service
@@ -63,7 +63,7 @@ public class ActorServiceImpl implements ActorService {
         ActorQueryCondition condition = new ActorQueryCondition();
         condition.setName(actor.getName());
         if(actorCustomMapper.getActorsBySelective(condition).size() > 0){
-            throw new RestException("该用户名已存在");
+            throw new ApiException("该用户名已存在");
         }
         actor.setId(null);
         return actorMapper.insertSelective(actor);
@@ -78,10 +78,10 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public Integer updateActor(Integer id, ActorDto actorDto) {
         if(id == null){
-            throw new RestException(RestCode.ILLEGAL_PARAMS);
+            throw new ApiException(ResultCode.ILLEGAL_PARAMS);
         }
         if(actorMapper.selectByPrimaryKey(id) == null){
-            throw new RestException("ID不存在");
+            throw new ApiException("ID不存在");
         }
         actorDto.setId(id);
         return actorMapper.updateByPrimaryKey(actorDto);
@@ -95,7 +95,7 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public Integer deleteActor(Integer id) {
         if(actorMapper.selectByPrimaryKey(id) == null){
-            throw new RestException(RestCode.USER_NOT_FOUND);
+            throw new ApiException(ResultCode.USER_NOT_FOUND);
         }
         Actor actor = new Actor();
         actor.setId(id);

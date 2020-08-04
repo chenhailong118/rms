@@ -7,9 +7,9 @@ import com.still.aikandy.common.querycondition.AuthRoleQueryCondition;
 import java.util.List;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 角色Service接口
- * @Date 2020/6/24 16:18
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface RoleService {

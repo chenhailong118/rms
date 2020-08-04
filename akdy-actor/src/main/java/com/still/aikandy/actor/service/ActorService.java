@@ -1,17 +1,18 @@
 package com.still.aikandy.actor.service;
 
 import com.github.pagehelper.PageInfo;
-import com.still.aikandy.common.api.RestException;
+import com.still.aikandy.common.api.ApiException;
 import com.still.aikandy.common.dto.ActorDto;
 import com.still.aikandy.common.querycondition.ActorQueryCondition;
 import com.still.aikandy.mbg.model.Actor;
 
 import java.util.List;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 演员
- * @Date 2020/5/22 21:41
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface ActorService {

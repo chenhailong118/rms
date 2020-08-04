@@ -10,13 +10,35 @@ import com.still.aikandy.mbg.model.AuthMenu;
 
 import java.util.List;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 菜单Service接口
- * @Date 2020/6/24 16:18
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 public interface MenuService {
+    /**
+     * 添加菜单信息
+     * @param authMenuDto 菜单信息
+     * @return
+     */
+    Integer addAuthUser(AuthMenuDto authMenuDto);
+
+    /**
+     * 根据菜单ID删除菜单信息
+     * @param menuId 菜单信息
+     * @return
+     */
+    Integer deleteAuthMenu(Long menuId);
+
+    /**
+     * 修改菜单信息
+     * @param menuId 菜单ID
+     * @param authMenuDto 菜单信息
+     * @return
+     */
+    Integer updateAuthMenu(Long menuId, AuthMenuDto authMenuDto);
 
     /**
      * 根据用户ID查询用户菜单
@@ -54,26 +76,4 @@ public interface MenuService {
      * @return
      */
     List<AuthMenuTree> queryAuthMenusTree(AuthMenuQueryCondition authMenuQueryCondition);
-
-    /**
-     * 修改菜单信息
-     * @param menuId 菜单ID
-     * @param authMenuDto 菜单信息
-     * @return
-     */
-    Integer updateAuthMenu(Long menuId, AuthMenuDto authMenuDto);
-
-    /**
-     * 添加菜单信息
-     * @param authMenuDto 菜单信息
-     * @return
-     */
-    Integer addAuthUser(AuthMenuDto authMenuDto);
-
-    /**
-     * 根据菜单ID删除菜单信息
-     * @param menuId 菜单信息
-     * @return
-     */
-    Integer deleteAuthMenu(Long menuId);
 }

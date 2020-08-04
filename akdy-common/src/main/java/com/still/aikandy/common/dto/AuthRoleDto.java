@@ -8,9 +8,9 @@ import org.hibernate.validator.constraints.Range;
 import javax.validation.constraints.NotNull;
 
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 角色传输对象
- * @Date 2020/6/24 22:01
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @Data

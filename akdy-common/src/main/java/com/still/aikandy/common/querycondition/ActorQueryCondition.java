@@ -7,10 +7,11 @@ import lombok.Data;
 
 import java.util.Date;
 
+
 /**
- * @Author Lee
+ * @Author FishAndFlower
  * @Description 演员查询条件
- * @Date 2020/6/17 16:31
+ * @Date 2020/8/4 10:51
  * @Version 1.0
  */
 @ApiModel
