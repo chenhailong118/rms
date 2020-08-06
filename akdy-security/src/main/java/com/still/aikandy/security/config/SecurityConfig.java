@@ -2,6 +2,7 @@ package com.still.aikandy.security.config;
 
 import com.still.aikandy.security.authention.DynamicSecurityFilter;
 import com.still.aikandy.security.authention.JwtAuthenticationTokenFilter;
+import com.still.aikandy.security.authention.VisitorFilter;
 import com.still.aikandy.security.authorize.AuthorizeConfigManager;
 import com.still.aikandy.security.handler.*;
 import com.still.aikandy.security.properties.SecurityConstants;
@@ -50,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Autowired
     private SecurityProperties securityProperties;
+    @Autowired
+    private VisitorFilter visitorFilter;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -64,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 //有动态权限配置时添加动态权限校验过滤器
                 .addFilterBefore(dynamicSecurityFilter, FilterSecurityInterceptor.class)
+                .addFilterBefore(visitorFilter,DynamicSecurityFilter.class)
                 //关闭Session
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

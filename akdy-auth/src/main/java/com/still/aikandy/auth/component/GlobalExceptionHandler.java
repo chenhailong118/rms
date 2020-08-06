@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
                 errMsgBuf.append(" -> ");
                 errMsgBuf.append(fieldError.getDefaultMessage() + "; ");
             });
-            return CommonResponse.error(ResultCode.ILLEGAL_PARAMS);
+            return CommonResponse.error(ResultCode.ILLEGAL_PARAMS.code,errMsgBuf.toString());
         }
         return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
                 errMsgBuf.append(" -> ");
                 errMsgBuf.append(fieldError.getDefaultMessage() + "; ");
             });
-            return CommonResponse.error(ResultCode.ILLEGAL_PARAMS);
+            return CommonResponse.error(ResultCode.ILLEGAL_PARAMS.code,errMsgBuf.toString());
         }
         return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }

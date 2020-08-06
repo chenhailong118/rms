@@ -37,6 +37,6 @@ public class AuthUserDetailsService implements UserDetailsService {
             List<AuthResource> resourceList = userService.getResourcesByUserId(user.getId());
             return new AuthUserDetails(user,resourceList);
         }
-        throw new UsernameNotFoundException("用户名或密码错误");
+        throw new UsernameNotFoundException("用户名不存在");
     }
 }

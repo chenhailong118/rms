@@ -27,8 +27,6 @@ public class AuthUserServiceImpl implements AuthUserService {
     private RoleService roleService;
     @Autowired
     private MenuService menuService;
-    @Autowired
-    private AuthProperties authProperties;
 
 
     /**
@@ -49,7 +47,6 @@ public class AuthUserServiceImpl implements AuthUserService {
         map.put("icon",user.getIcon());
         map.put("roles", roleService.getAuthRoleByUserId(user.getId()));
         map.put("menus",menuService.getMenuBYUserId(user.getId()));
-        map.put("imageServer",authProperties.getImageServer());
         return map;
     }
 

@@ -17,4 +17,6 @@ public interface AuthUserCustomMapper {
     List<AuthUserDto> getAuthUsersByCondition(AuthUserQueryCondition authUserQueryCondition);
 
     List<AuthResource> getResourcesByUserId(Long userId);
+
+    Integer updateByPrimaryKey(AuthUserDto authUserDto);
 }

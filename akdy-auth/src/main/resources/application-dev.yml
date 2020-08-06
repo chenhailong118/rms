@@ -50,16 +50,12 @@ mybatis:
   type-aliases-package: con.still.aikandy.auth.entity
 
 auth:
-  #头像上传地址
-  posticonurl: http://localhost:8066/auth/user/icon
   #默认头像地址
   defaultIcon: /images/icon/defaultIcon.jpg
   #本地文件存储位置
   basePath: D:/static/aikandy
   #头像存储相对路径
   iconPath: /images/icon
-  #图像服务器地址
-  imageServer: http://localhost:8099
 #Security配置参数
 security:
   browser:
@@ -76,7 +72,7 @@ security:
       width: 80 # 验证码宽度
       height: 40 # 验证码高度
       length: 4 # 验证码位数
-      expireIn: 60  # 超时时间，单位：秒
+      expireIn: 3600  # 超时时间，单位：秒
       url: /auth/form # 需要拦截的URL
   jwt:
     secret: akdy-sec

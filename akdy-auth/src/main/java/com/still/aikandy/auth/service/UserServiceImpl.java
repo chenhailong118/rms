@@ -10,7 +10,6 @@ import com.still.aikandy.common.api.ResultCode;
 import com.still.aikandy.common.api.ApiException;
 import com.still.aikandy.common.dto.AuthUserDto;
 import com.still.aikandy.common.dto.AuthUserLoginParam;
-import com.still.aikandy.common.dto.UrlsDto;
 import com.still.aikandy.common.querycondition.AuthUserQueryCondition;
 import com.still.aikandy.common.utils.FileUtil;
 import com.still.aikandy.common.utils.JwtHelper;
@@ -112,23 +111,34 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public Integer updateAuthUser(Long userId, AuthUserDto authUserDto) {
-        //用户密码和确认密码是否都存在
-        if(!StringUtils.isEmpty(authUserDto.getPassword()) && !StringUtils.isEmpty(authUserDto.getComfirmPassword())){
-            //用户密码和确认密码是否一致
-            if(!StringUtils.equals(authUserDto.getPassword(),authUserDto.getComfirmPassword())){
-                throw new ApiException(ResultCode.PWD_NOT_EQUALS_COMPWD);
-            }else{
-                //密码加密
-                authUserDto.setPassword(passwordEncoder.encode(authUserDto.getPassword()));
-            }
-        }else{
-            authUserDto.setPassword(null);
+        AuthUser authUser = authUserMapper.selectByPrimaryKey(userId);
+        //用户名校验
+        if(authUserDto.getUsername() == null){
+            throw new ApiException(ResultCode.USER_NAME_IS_NULL);
         }
-        //信息重复检查
-        check(authUserDto);
+        if(!authUser.getUsername().equals(authUserDto.getUsername())){
+            if(authUserDto.getUsername() != null && !CollectionUtil.isEmpty(getAuthUserByUsername(authUserDto.getUsername()))){
+                throw new ApiException(ResultCode.USER_EXIST);
+            }
+        }
+
+        //手机号码校验
+        if(StringUtils.isEmpty(authUser.getPhone()) || !authUser.getPhone().equals(authUserDto.getPhone())){
+            if(authUserDto.getPhone() != null && !CollectionUtil.isEmpty(getAuthUserByPhone(authUserDto.getPhone()))){
+                throw new ApiException(ResultCode.PHONE_EXIST);
+            }
+        }
+
+        //邮箱校验
+        if(StringUtils.isEmpty(authUser.getEmail()) || !authUser.getEmail().equals(authUserDto.getEmail())){
+            if(authUserDto.getEmail() != null && !CollectionUtil.isEmpty(getAuthUserByEmail(authUserDto.getEmail()))){
+                throw new ApiException(ResultCode.EMAIL_EXIST);
+            }
+        }
+
         //设置用户ID
         authUserDto.setId(userId);
-        return authUserMapper.updateByPrimaryKeySelective(authUserDto);
+        return authUserCustomMapper.updateByPrimaryKey(authUserDto);
     }
 
     /**
@@ -161,17 +171,6 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /**
-     * 获取URL信息
-     * @return
-     */
-    @Override
-    public UrlsDto getUrls() {
-        UrlsDto urlsDto = new UrlsDto();
-        urlsDto.setPostIconUrl(authProperties.getPostIconUrl());
-        urlsDto.setImageServer(authProperties.getImageServer());
-        return urlsDto;
-    }
 
     /**
      * 分配用户角色
@@ -333,7 +332,6 @@ public class UserServiceImpl implements UserService {
         AuthUser user = getAuthUserByUsername((String) map.get("username")).get(0);
         map.put("roles", roleService.getAuthRoleByUserId(user.getId()));
         map.put("menus",menuService.getMenuBYUserId(user.getId()));
-        map.put("imageServer",authProperties.getImageServer());
         return map;
     }
 

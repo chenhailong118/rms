@@ -53,7 +53,7 @@ public class UserController {
      */
     @ApiOperation(value = "添加用户信息",notes = "添加用户信息")
     @RequestMapping(value = "",method = RequestMethod.POST)
-    public CommonResponse<Integer> addUser(@RequestBody @Validated(AuthUserDto.AddAuthUserGroup.class) AuthUserDto authUserDto) throws IOException {
+    public CommonResponse<Integer> addUser(@Validated(AuthUserDto.AddAuthUserGroup.class) @RequestBody AuthUserDto authUserDto) throws IOException {
         Integer count = userService.addAuthUser(authUserDto);
         return CommonResponse.success(count);
     }
@@ -115,16 +115,6 @@ public class UserController {
     @RequestMapping(value = "icon",method = RequestMethod.POST)
     public CommonResponse<String> iconUpload(@RequestParam("file") MultipartFile icon){
         return CommonResponse.success(userService.iconUpload(icon));
-    }
-
-    /**
-     * 获取URLS
-     * @return
-     */
-    @ApiOperation(value = "获取URLS",notes = "获取URLS")
-    @GetMapping(value = "urls")
-    public CommonResponse<UrlsDto> getPostIconUrl(){
-        return CommonResponse.success(userService.getUrls());
     }
 
 

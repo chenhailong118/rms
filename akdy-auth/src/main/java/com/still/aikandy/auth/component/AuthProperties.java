@@ -15,9 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "auth")
 public class AuthProperties {
-    private String postIconUrl;
     private String defaultIcon;
     private String basePath;
     private String iconPath;
-    private String imageServer;
 }

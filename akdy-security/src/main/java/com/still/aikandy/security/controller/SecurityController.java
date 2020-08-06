@@ -2,6 +2,7 @@ package com.still.aikandy.security.controller;
 
 import com.still.aikandy.common.api.CommonResponse;
 import com.still.aikandy.security.properties.SecurityConstants;
+import com.still.aikandy.security.properties.SecurityProperties;
 import com.still.aikandy.security.utils.JwtTokenUtil;
 import com.still.aikandy.security.validatecode.ValidateCodeProcessor;
 import com.still.aikandy.security.validatecode.ValidateCodeProcessorHolder;
@@ -41,14 +42,11 @@ public class SecurityController {
 	private RedisTemplate<Object, Object> redisTemplate;
 
 	@Autowired
+	private SecurityProperties securityProperties;
+
+	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
-	@Value("${security.jwt.secret}")
-	private String secret = "defaultJwtSecret"; //jwt加密秘钥
-	@Value("${security.jwt.expiration}")
-	private Long expiration = 60*30L;  //过期时间，单位：秒
-	@Value("${security.jwt.tokenPrefix}")
-	private String tokenPrefix = "Bearer"; //token头
 
 	/**
 	 * 创建验证码，根据验证码类型不同，调用不同的 {@link ValidateCodeProcessor}接口实现
@@ -88,9 +86,9 @@ public class SecurityController {
 	public CommonResponse refreshToken(@RequestHeader(SecurityConstants.DEFAULT_TOKEN_HEADER) String oldToken){
 		//生成返回TOKEN
 		Map resultMap = new HashMap<>();
-		resultMap.put("tokenPrefix", tokenPrefix);
-		resultMap.put("token",jwtTokenUtil.refreshHeadToken(oldToken.replaceFirst(tokenPrefix,""), secret, expiration));
-		resultMap.put("expireTime", LocalDateTime.now().plusSeconds(expiration).toEpochSecond(ZoneOffset.of("+8")));
+		resultMap.put("tokenPrefix", securityProperties.getJwt().getTokenPrefix());
+		resultMap.put("token",jwtTokenUtil.refreshHeadToken(oldToken.replaceFirst(securityProperties.getJwt().getTokenPrefix(),""), securityProperties.getJwt().getSecret(), securityProperties.getJwt().getExpiration()));
+		resultMap.put("expireTime", LocalDateTime.now().plusSeconds(securityProperties.getJwt().getExpiration()).toEpochSecond(ZoneOffset.of("+8")));
 		return CommonResponse.success(resultMap);
 	}
 }

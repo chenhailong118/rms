@@ -3,7 +3,6 @@ package com.still.aikandy.auth.service;
 import com.github.pagehelper.PageInfo;
 import com.still.aikandy.common.dto.AuthUserDto;
 import com.still.aikandy.common.dto.AuthUserLoginParam;
-import com.still.aikandy.common.dto.UrlsDto;
 import com.still.aikandy.common.querycondition.AuthUserQueryCondition;
 import com.still.aikandy.mbg.model.AuthResource;
 import com.still.aikandy.mbg.model.AuthUser;
@@ -60,12 +59,6 @@ public interface UserService {
      * @return
      */
     String iconUpload(MultipartFile icon);
-
-    /**
-     * 获取URL信息
-     * @return
-     */
-    UrlsDto getUrls();
 
     /**
      * 分配用户角色
