@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>com.still.aikandy</groupId>
-        <artifactId>aikandy</artifactId>
+        <groupId>com.still.rms</groupId>
+        <artifactId>rms</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.still.aikandy</groupId>
+    <groupId>com.still.rms</groupId>
     <artifactId>eureka-server-peer1</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>eureka-server-peer1</name>

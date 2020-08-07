@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.still.aikandy</groupId>
-    <artifactId>aikandy</artifactId>
+    <groupId>com.still.rms</groupId>
+    <artifactId>rms</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>aikandy</name>
-    <description>爱看电影</description>
+    <name>rms</name>
+    <description>资源管理系统</description>
 
     <properties>
         <spring-platform.version>Cairo-SR7</spring-platform.version>
@@ -18,6 +18,9 @@
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <rms.mbg.version>1.0.0-SNAPSHOT</rms.mbg.version>
+        <rms.common.version>1.0.0-SNAPSHOT</rms.common.version>
+        <rms.security.version>1.0.0-SNAPSHOT</rms.security.version>
     </properties>
 
 
@@ -69,14 +72,14 @@
     </build>
 
     <modules>
-        <module>akdy-actor</module>
-        <module>akdy-video</module>
         <module>api-gateway</module>
-        <module>akdy-auth</module>
-        <module>akdy-mbg</module>
-        <module>akdy-common</module>
         <module>eureka-server-peer1</module>
         <module>eureka-server-peer2</module>
-        <module>akdy-security</module>
+        <module>rms-actor</module>
+        <module>rms-video</module>
+        <module>rms-auth</module>
+        <module>rms-mbg</module>
+        <module>rms-common</module>
+        <module>rms-security</module>
     </modules>
 </project>
