@@ -34,7 +34,7 @@ public interface SecurityConstants {
     String REFRESH_TOKEN_RUL = "/auth/refreshtoken";
 
     /**
-     * 默认的手机验证码登录请求处理url
+     * 默认的获取手机验证码或登录请求处理url
      */
     String DEFAULT_LOGIN_IN_PROCESSING_URL_MOBILE = "/auth/mobile";
 
@@ -73,7 +73,7 @@ public interface SecurityConstants {
     /**
      * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
      */
-    String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
+    String DEFAULT_PARAMETER_NAME_MOBILE = "phone";
 
     /**
      * token在请求头headers里的属性名称

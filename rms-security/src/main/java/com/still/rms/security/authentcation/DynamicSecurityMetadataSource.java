@@ -1,4 +1,4 @@
-package com.still.rms.security.authention;
+package com.still.rms.security.authentcation;
 
 import cn.hutool.core.util.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;

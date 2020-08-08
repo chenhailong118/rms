@@ -4,7 +4,7 @@ import com.still.rms.auth.service.ResourceService;
 import com.still.rms.common.dto.AuthResourceDto;
 import com.still.rms.common.querycondition.AuthResourceQueryCondition;
 import com.still.rms.mbg.model.AuthResource;
-import com.still.rms.security.authention.DynamicSecurityService;
+import com.still.rms.security.authentcation.DynamicSecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.stereotype.Component;

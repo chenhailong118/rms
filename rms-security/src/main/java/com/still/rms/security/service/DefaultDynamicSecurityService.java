@@ -1,6 +1,6 @@
 package com.still.rms.security.service;
 
-import com.still.rms.security.authention.DynamicSecurityService;
+import com.still.rms.security.authentcation.DynamicSecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.ConfigAttribute;

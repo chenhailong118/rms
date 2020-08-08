@@ -1,8 +1,10 @@
 package com.still.rms.security.config;
 
-import com.still.rms.security.authention.DynamicSecurityFilter;
-import com.still.rms.security.authention.JwtAuthenticationTokenFilter;
-import com.still.rms.security.authention.VisitorFilter;
+import com.still.rms.security.authentcation.DynamicSecurityFilter;
+import com.still.rms.security.authentcation.JwtAuthenticationTokenFilter;
+import com.still.rms.security.authentcation.VisitorFilter;
+import com.still.rms.security.authentcation.mobile.SmsCodeAuthenticationFilter;
+import com.still.rms.security.authentcation.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.still.rms.security.authorize.AuthorizeConfigManager;
 import com.still.rms.security.handler.*;
 import com.still.rms.security.properties.SecurityProperties;
@@ -52,6 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private SecurityProperties securityProperties;
     @Autowired
     private VisitorFilter visitorFilter;
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
@@ -61,6 +65,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity
                 //验证码过滤器
                 .apply(validateCodeSecurityConfig)
+                .and()
+                //短信登录处理器配置
+                .apply(smsCodeAuthenticationSecurityConfig)
                 .and()
                 // 自定义权限拦截器JWT过滤器
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)

@@ -57,24 +57,24 @@ public class SecurityController {
 	@GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}/{validateCodeToken}")
 	public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type, @PathVariable String validateCodeToken)
 			throws Exception {
-		request.setAttribute("VALIDATE_CODE_TOKEN",validateCodeToken);
+		request.setAttribute("deviceId",validateCodeToken);
 		validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
 	}
 
-	/**
-	 * 游客token获取，登录前获取用于验证码校验使用
-	 * @return
-	 */
-	@GetMapping(SecurityConstants.VISIT_TOKEN_RUL)
-	public CommonResponse getValidateCodeToken(){
-		String validatecodetoken = UUID.randomUUID().toString() + new Date().getTime();
-		redisTemplate.opsForValue().set(SecurityConstants.VISIT_TOKEN_PREFIX + validatecodetoken, validatecodetoken,60, TimeUnit.SECONDS);
-		return CommonResponse.success(new HashMap(){
-			{
-				put("validatecodetoken",validatecodetoken);
-			}
-		});
-	}
+//	/**
+//	 * 游客token获取，登录前获取用于验证码校验使用
+//	 * @return
+//	 */
+//	@GetMapping(SecurityConstants.VISIT_TOKEN_RUL)
+//	public CommonResponse getValidateCodeToken(){
+//		String validatecodetoken = UUID.randomUUID().toString() + new Date().getTime();
+//		redisTemplate.opsForValue().set(SecurityConstants.VISIT_TOKEN_PREFIX + validatecodetoken, validatecodetoken,60, TimeUnit.SECONDS);
+//		return CommonResponse.success(new HashMap(){
+//			{
+//				put("validatecodetoken",validatecodetoken);
+//			}
+//		});
+//	}
 
 	/**
 	 * 登录用户刷新TOKEN

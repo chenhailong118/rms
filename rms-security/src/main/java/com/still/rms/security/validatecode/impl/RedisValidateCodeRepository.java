@@ -69,18 +69,14 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
      * @return
      */
     private String buildKey(ServletWebRequest request, ValidateCodeType type) {
-        String validatecodetoken = request.getHeader("VALIDATE_CODE_TOKEN");
-        if (StringUtils.isBlank(validatecodetoken)) {
-            validatecodetoken = (String) request.getAttribute("VALIDATE_CODE_TOKEN", 0);
-            if(StringUtils.isBlank(validatecodetoken)){
-                throw new ValidateCodeException("请在请求头中携带VALIDATE_CODE_TOKEN参数");
+        String deviceId = request.getHeader("deviceId");
+        if (StringUtils.isBlank(deviceId)) {
+            deviceId = (String) request.getAttribute("deviceId", 0);
+            if(StringUtils.isBlank(deviceId)){
+                throw new ValidateCodeException("请在请求头中携带deviceId参数");
             }
         }
-        Object redisValidatecodetoken = redisTemplate.opsForValue().get(SecurityConstants.VISIT_TOKEN_PREFIX + validatecodetoken);
-        if(redisValidatecodetoken == null){
-            throw new ValidateCodeException("VALIDATE_CODE_TOKEN已失效");
-        }
-        return "code:" + type.toString().toLowerCase() + ":" + validatecodetoken;
+        return "code:" + type.toString().toLowerCase() + ":" + deviceId;
     }
 
 }

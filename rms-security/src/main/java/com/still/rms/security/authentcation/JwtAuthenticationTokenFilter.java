@@ -1,4 +1,4 @@
-package com.still.rms.security.authention;
+package com.still.rms.security.authentcation;
 
 import com.still.rms.security.properties.SecurityConstants;
 import com.still.rms.security.properties.SecurityProperties;

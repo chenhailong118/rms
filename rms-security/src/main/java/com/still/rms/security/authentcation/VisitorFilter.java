@@ -1,4 +1,4 @@
-package com.still.rms.security.authention;
+package com.still.rms.security.authentcation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.still.rms.common.api.CommonResponse;

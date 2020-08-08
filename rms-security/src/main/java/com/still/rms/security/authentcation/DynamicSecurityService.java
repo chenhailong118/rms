@@ -1,4 +1,4 @@
-package com.still.rms.security.authention;
+package com.still.rms.security.authentcation;
 
 import org.springframework.security.access.ConfigAttribute;
 

@@ -1,4 +1,4 @@
-package com.still.rms.security.authention;
+package com.still.rms.security.authentcation;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.extern.slf4j.Slf4j;

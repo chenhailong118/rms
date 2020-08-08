@@ -7,6 +7,7 @@ import com.still.rms.security.validatecode.ValidateCodeGenerator;
 import lombok.Data;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -22,6 +23,7 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
 
 	@Autowired
 	private SecurityProperties securityProperties;
+
 	
 	/*
 	 * (non-Javadoc)
