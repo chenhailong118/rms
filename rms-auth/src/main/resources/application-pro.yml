@@ -56,8 +56,6 @@ auth:
   basePath: /mydata/nginx/html
   #头像存储相对路径
   iconPath: /images/icon
-#  #图像服务器地址
-#  imageServer:
 #Security配置参数
 security:
   browser:
