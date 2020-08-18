@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 //@RestController
-@RequestMapping("/auth")
 @Api(value = "鉴权", description = "鉴权API")
 @Validated
 public class AuthController {

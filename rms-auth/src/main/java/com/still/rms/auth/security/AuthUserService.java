@@ -1,5 +1,7 @@
 package com.still.rms.auth.security;
 
+import com.still.rms.mbg.model.AuthUser;
+
 import java.util.Map;
 
 /**
@@ -16,4 +18,5 @@ public interface AuthUserService {
      * @return
      */
     Map<String,Object> getUserInfo(String token);
+
 }

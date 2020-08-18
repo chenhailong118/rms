@@ -1,9 +1,11 @@
 package com.still.rms.auth.security;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.still.rms.auth.service.MenuService;
 import com.still.rms.auth.service.RoleService;
 import com.still.rms.common.api.ApiException;
 import com.still.rms.common.api.ResultCode;
+import com.still.rms.common.dto.AuthUserDto;
 import com.still.rms.mbg.model.AuthUser;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

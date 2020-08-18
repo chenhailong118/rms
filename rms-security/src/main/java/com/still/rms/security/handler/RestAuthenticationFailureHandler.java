@@ -2,6 +2,7 @@ package com.still.rms.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.still.rms.common.api.CommonResponse;
+import com.still.rms.common.api.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,6 @@ public class RestAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 		log.info("登录失败");
 		response.setStatus(HttpStatus.OK.value());
 		response.setContentType("application/json;charset=UTF-8");
-		response.getWriter().write(objectMapper.writeValueAsString(CommonResponse.error(exception.getMessage())));
+		response.getWriter().write(objectMapper.writeValueAsString(CommonResponse.error(ResultCode.USERNAME_OR_PASSWORD_WRONG)));
 	}
 }

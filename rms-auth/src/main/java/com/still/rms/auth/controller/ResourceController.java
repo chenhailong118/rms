@@ -85,7 +85,7 @@ public class ResourceController {
             @ApiImplicitParam(name = "pageSize", value = "每页记录数", dataType = "Integer")
     })
     @GetMapping(value = "")
-    public CommonResponse<PageInfo<List<AuthResourceDto>>> queryResources(
+    public CommonResponse<PageInfo<AuthResourceDto>> queryResources(
             AuthResourceQueryCondition authResourceQueryCondition,
             @RequestParam(value = "pageNum",required = false) Integer pageNum,
             @RequestParam(value = "pageSize",required = false) Integer pageSize){

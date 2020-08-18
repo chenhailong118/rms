@@ -21,6 +21,7 @@
         <rms.mbg.version>1.0.0-SNAPSHOT</rms.mbg.version>
         <rms.common.version>1.0.0-SNAPSHOT</rms.common.version>
         <rms.security.version>1.0.0-SNAPSHOT</rms.security.version>
+        <rms.auth.version>1.0.0-SNAPSHOT</rms.auth.version>
     </properties>
 
 
@@ -75,8 +76,7 @@
         <module>api-gateway</module>
         <module>eureka-server-peer1</module>
         <module>eureka-server-peer2</module>
-        <module>rms-actor</module>
-        <module>rms-video</module>
+        <module>rms-superstar</module>
         <module>rms-auth</module>
         <module>rms-mbg</module>
         <module>rms-common</module>

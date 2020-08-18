@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.still.rms.superstar.dao.RealtionActorResourceCustomMapper">
+  <delete id="deleteByResourceId">
+    delete from realtion_actor_resource where resource_id = #{resourceId}
+  </delete>
+  <select id="queryActorIdsByResourceId" resultType="java.lang.Integer">
+    select actor_id from realtion_actor_resource where resource_id = #{resourceId}
+  </select>
+</mapper>

@@ -39,7 +39,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return
      */
     @Override
-    public PageInfo<List<AuthResourceDto>> queryAuthResources(AuthResourceQueryCondition authResourceQueryCondition, Integer pageNum, Integer pageSize) {
+    public PageInfo<AuthResourceDto> queryAuthResources(AuthResourceQueryCondition authResourceQueryCondition, Integer pageNum, Integer pageSize) {
         if(pageNum != null && pageSize != null){
             PageHelper.startPage(pageNum,pageSize);
         }

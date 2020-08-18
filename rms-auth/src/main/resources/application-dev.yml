@@ -38,6 +38,8 @@ eureka:
     #续约过期时间
     lease-expiration-duration-in-seconds: 10
   client:
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://peer1:8666/eureka/,http://peer2:8777/eureka/
     #开启健康检查状态上报
@@ -51,11 +53,11 @@ mybatis:
 
 auth:
   #默认头像地址
-  defaultIcon: /images/icon/defaultIcon.jpg
+  defaultIcon: /rms/images/icon/defaultIcon.jpg
   #本地文件存储位置
-  basePath: D:/static/rms
+  basePath: D:/static
   #头像存储相对路径
-  iconPath: /images/icon
+  iconPath: /rms/images/icon
 #Security配置参数
 security:
   browser:
@@ -63,8 +65,10 @@ security:
     logInUrlForm: /auth/form # 用户名密码登录地址
     logOutUrl: /auth/logout # 退出登录地址
     ignoreUrls: # 无需登录即可访问的地址
-      - /auth/login
       - /auth/user/icon
+      - /auth/security/user
+      - /auth/security/resources
+      - /auth/security/resourceall
   # 验证码相关
   code:
     # 图片验证码

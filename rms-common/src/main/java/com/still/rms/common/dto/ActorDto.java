@@ -4,7 +4,6 @@ import com.still.rms.mbg.model.Actor;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.*;
 import java.util.Date;
@@ -19,8 +18,7 @@ import java.util.Date;
 public class ActorDto extends Actor {
     public interface AddActorGroup {}
 
-    @ApiModelProperty(value = "性别，0->女；1->男")
-    @Range(min = 0, max = 1, message = "性别只能为0和1: 0->女；1->男", groups = AddActorGroup.class)
+    @ApiModelProperty(value = "性别")
     private Integer sex;
 
     @ApiModelProperty(value = "姓名")

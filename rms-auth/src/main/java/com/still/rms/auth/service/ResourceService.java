@@ -22,7 +22,7 @@ public interface ResourceService {
      * @param pageSize 每页记录数
      * @return
      */
-    PageInfo<List<AuthResourceDto>> queryAuthResources(AuthResourceQueryCondition authResourceQueryCondition, Integer pageNum, Integer pageSize);
+    PageInfo<AuthResourceDto> queryAuthResources(AuthResourceQueryCondition authResourceQueryCondition, Integer pageNum, Integer pageSize);
 
     /**
      * 根据条件查询资源（ALL）

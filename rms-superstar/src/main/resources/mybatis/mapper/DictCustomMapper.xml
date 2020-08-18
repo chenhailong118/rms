@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.still.rms.superstar.dao.DictCustomMapper">
+  <select id="getDictsByName" resultType="com.still.rms.common.dto.DictinfoDto">
+    SELECT
+	info.id,
+	info.NAME,
+	info.parent_id
+FROM
+	`dictinfo` info
+	LEFT JOIN `dicttype` type ON info.dicttype_id = type.id
+WHERE
+	type.NAME = #{name}
+ORDER BY
+	`order` DESC
+  </select>
+
+</mapper>
