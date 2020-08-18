@@ -29,3 +29,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+###  生产配置文件 ###
+*-pro.yml
