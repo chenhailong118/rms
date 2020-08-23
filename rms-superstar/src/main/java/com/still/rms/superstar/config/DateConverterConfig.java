@@ -39,6 +39,8 @@ public class DateConverterConfig implements Converter<String, Date> {
             return parseDate(source, formarts.get(2));
         }else if(source.matches("^\\d{4}-\\d{1,2}-\\d{1,2} {1}\\d{1,2}:\\d{1,2}:\\d{1,2}$")){
             return parseDate(source, formarts.get(3));
+        }else if(source.length() == 13){
+            return new Date(Long.parseLong(value));
         }else {
             throw new IllegalArgumentException("Invalid boolean value '" + source + "'");
         }

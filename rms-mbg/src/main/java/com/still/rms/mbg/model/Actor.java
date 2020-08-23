@@ -21,7 +21,7 @@ public class Actor implements Serializable {
     @ApiModelProperty(value = "别名")
     private String aliase;
 
-    @ApiModelProperty(value = "性别，0->女；1->男")
+    @ApiModelProperty(value = "性别")
     private Integer sex;
 
     @ApiModelProperty(value = "国家")

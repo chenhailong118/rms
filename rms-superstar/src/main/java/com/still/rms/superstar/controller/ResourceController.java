@@ -2,7 +2,10 @@ package com.still.rms.superstar.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.still.rms.common.api.CommonResponse;
+import com.still.rms.common.api.ResultCode;
+import com.still.rms.common.dto.ActorIdAndName;
 import com.still.rms.common.dto.ResourceDto;
+import com.still.rms.common.dto.ResourceTagDto;
 import com.still.rms.common.querycondition.ResourceQueryCondition;
 import com.still.rms.mbg.model.Resource;
 import com.still.rms.superstar.component.SuperstarProperties;
@@ -100,15 +103,15 @@ public class ResourceController {
     }
 
     /**
-     * 根据资源ID查询演员ID列表
+     * 根据资源ID查询演员列表
      * @param id 资源id
      * @return
      */
-    @ApiOperation(value = "获取资源列表", notes = "根据条件查询资源信息")
+    @ApiOperation(value = "根据资源ID查询演员列表", notes = "根据资源ID查询演员列表")
     @ApiImplicitParam(name = "id", value = "资源id", dataType = "Integer")
-    @RequestMapping(value = "actorids", method = RequestMethod.GET)
-    public CommonResponse<List<Integer>> queryActorIds(Integer id){
-        return CommonResponse.success(resourceService.queryActorIds(id));
+    @RequestMapping(value = "actors/{id}", method = RequestMethod.GET)
+    public CommonResponse<List<ActorIdAndName>> queryActorIds(@PathVariable("id") Integer id){
+        return CommonResponse.success(resourceService.queryActors(id));
     }
 
     /**
@@ -131,5 +134,15 @@ public class ResourceController {
             }
         }
         return CommonResponse.success(images);
+    }
+
+    @ApiOperation("给资源添加标签")
+    @PostMapping("/allocTag")
+    public CommonResponse allocTag(ResourceTagDto resourceTagDto){
+        int count = resourceService.updateResourceTags(resourceTagDto.getResourceId(), resourceTagDto.getTagIds());
+        if (count >= 0) {
+            return CommonResponse.success(count);
+        }
+        return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
     }
 }

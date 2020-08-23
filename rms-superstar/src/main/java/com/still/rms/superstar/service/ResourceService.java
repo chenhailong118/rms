@@ -1,6 +1,7 @@
 package com.still.rms.superstar.service;
 
 import com.github.pagehelper.PageInfo;
+import com.still.rms.common.dto.ActorIdAndName;
 import com.still.rms.common.dto.ResourceDto;
 import com.still.rms.common.querycondition.ResourceQueryCondition;
 import com.still.rms.mbg.model.Resource;
@@ -52,4 +53,19 @@ public interface ResourceService {
      * @return
      */
     List<Integer> queryActorIds(Integer id);
+
+    /**
+     * 分配资源标签关系
+     * @param resourceId 资源ID
+     * @param tagIds 标签ID数组
+     * @return
+     */
+    int updateResourceTags(Long resourceId, List<Long> tagIds);
+
+    /**
+     * 根据资源IDc查询演员列表
+     * @param id
+     * @return
+     */
+    List<ActorIdAndName> queryActors(Integer id);
 }

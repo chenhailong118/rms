@@ -1,7 +1,9 @@
 package com.still.rms.superstar.dao;
 
+import com.still.rms.common.dto.ActorIdAndName;
 import com.still.rms.common.dto.ResourceDto;
 import com.still.rms.common.querycondition.ResourceQueryCondition;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +17,6 @@ import java.util.List;
 @Repository
 public interface ResourceCustomMapper {
     List<ResourceDto> getResourcesBySelective(ResourceQueryCondition resourceQueryCondition);
+
+    List<ActorIdAndName> queryActors(@Param("id") Integer id);
 }

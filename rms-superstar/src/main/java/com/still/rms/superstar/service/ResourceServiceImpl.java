@@ -1,20 +1,26 @@
 package com.still.rms.superstar.service;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.still.rms.common.api.ApiException;
 import com.still.rms.common.api.ResultCode;
+import com.still.rms.common.dto.ActorIdAndName;
 import com.still.rms.common.dto.ResourceDto;
 import com.still.rms.common.querycondition.ResourceQueryCondition;
 import com.still.rms.mbg.mapper.RealtionActorResourceMapper;
 import com.still.rms.mbg.mapper.ResourceMapper;
+import com.still.rms.mbg.model.AuthRoleMenu;
 import com.still.rms.mbg.model.RealtionActorResource;
+import com.still.rms.mbg.model.RelationResourceTag;
 import com.still.rms.mbg.model.Resource;
 import com.still.rms.superstar.dao.RealtionActorResourceCustomMapper;
 import com.still.rms.superstar.dao.ResourceCustomMapper;
+import com.still.rms.superstar.dao.RelationResourceTagCustomMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,12 +36,14 @@ public class ResourceServiceImpl implements ResourceService {
     private final ResourceMapper resourceMapper;
     private final RealtionActorResourceMapper realtionActorResourceMapper;
     private final RealtionActorResourceCustomMapper realtionActorResourceCustomMapper;
+    private final RelationResourceTagCustomMapper relationResourceTagCustomMapper;
 
-    public ResourceServiceImpl(ResourceCustomMapper resourceCustomMapper, ResourceMapper resourceMapper, RealtionActorResourceMapper realtionActorResourceMapper, RealtionActorResourceCustomMapper realtionActorResourceCustomMapper) {
+    public ResourceServiceImpl(ResourceCustomMapper resourceCustomMapper, ResourceMapper resourceMapper, RealtionActorResourceMapper realtionActorResourceMapper, RealtionActorResourceCustomMapper realtionActorResourceCustomMapper, RelationResourceTagCustomMapper relationResourceTagCustomMapper) {
         this.resourceCustomMapper = resourceCustomMapper;
         this.resourceMapper = resourceMapper;
         this.realtionActorResourceMapper = realtionActorResourceMapper;
         this.realtionActorResourceCustomMapper = realtionActorResourceCustomMapper;
+        this.relationResourceTagCustomMapper = relationResourceTagCustomMapper;
     }
 
     /**
@@ -52,6 +60,8 @@ public class ResourceServiceImpl implements ResourceService {
         }
         if(!StringUtils.isEmpty(resourceQueryCondition.getOrderStr())){
             PageHelper.orderBy(resourceQueryCondition.getOrderStr());
+        }else{
+            PageHelper.orderBy(" score desc ");
         }
         List<ResourceDto> actosList = resourceCustomMapper.getResourcesBySelective(resourceQueryCondition);
         actosList.stream().forEach(resourceDto -> {
@@ -134,5 +144,34 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public List<Integer> queryActorIds(Integer id) {
         return realtionActorResourceCustomMapper.queryActorIdsByResourceId(id);
+    }
+
+    @Override
+    public int updateResourceTags(Long resourceId, List<Long> tagIds) {
+        //删除资源旧标签关系
+        relationResourceTagCustomMapper.deleteByResourceId(resourceId);
+
+        //建立用户角色关系
+        if(!CollectionUtil.isEmpty(tagIds)){
+            List<RelationResourceTag> relationList = new ArrayList<>();
+            tagIds.forEach(tagId -> {
+                RelationResourceTag relation = new RelationResourceTag();
+                relation.setResourceId(resourceId);
+                relation.setTagId(tagId);
+                relationList.add(relation);
+            });
+            return relationResourceTagCustomMapper.insertList(relationList);
+        }
+        return 0;
+    }
+
+    /**
+     * 根据资源IDc查询演员列表
+     * @param id
+     * @return
+     */
+    @Override
+    public List<ActorIdAndName> queryActors(Integer id) {
+        return resourceCustomMapper.queryActors(id);
     }
 }

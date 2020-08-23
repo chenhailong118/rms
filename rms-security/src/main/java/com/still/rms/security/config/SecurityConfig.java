@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
     @Autowired
     private SecurityProperties securityProperties;
-    @Autowired
+    @Autowired(required = false)
     private VisitorFilter visitorFilter;
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;

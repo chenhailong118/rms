@@ -24,7 +24,7 @@
     <result column="poster_full" jdbcType="VARCHAR" property="posterFull" />
     <result column="theme" jdbcType="INTEGER" property="theme" />
     <result column="mark" jdbcType="INTEGER" property="mark" />
-    <result column="videodir" jdbcType="VARCHAR" property="videodir" />
+    <result column="resourcedir" jdbcType="VARCHAR" property="resourcedir" />
     <result column="country" jdbcType="INTEGER" property="country" />
     <result column="cteate_time" jdbcType="TIMESTAMP" property="cteateTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
@@ -112,7 +112,10 @@
         AND rs.`status` = 1
       </if>
       <if test="actorId != null">
-        AND rar.`actor_id` =  #{actorId,jdbcType=VARCHAR}
+        AND rar.`actor_id` =  #{actorId,jdbcType=INTEGER}
+      </if>
+      <if test="tagId != null">
+        AND tagrel.`tag_id` =  #{tagId,jdbcType=INTEGER}
       </if>
     </where>
   </sql>
@@ -121,10 +124,19 @@
     SELECT
      rs.*
     FROM `resource` rs
-    left join `realtion_actor_resource` rar
-    on rs.id = rar.resource_id
+    <if test="actorId != null">
+      left join `realtion_actor_resource` rar
+      on rs.id = rar.resource_id
+    </if>
+    <if test="tagId != null">
+      left join `relation_resource_tag` tagrel
+      on rs.id = tagrel.resource_id
+    </if>
     <include refid="Where"></include>
+  </select>
 
+  <select id="queryActors" resultType="com.still.rms.common.dto.ActorIdAndName">
+    select actor.id,actor.`name` from actor left join realtion_actor_resource rar on actor.id = rar.actor_id where rar.resource_id = #{id}
   </select>
 
 </mapper>

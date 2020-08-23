@@ -13,6 +13,9 @@ spring:
     url: jdbc:mysql://localhost:3306/superstar?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
     username: root
     password: root
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
   redis:
     host: localhost # Redis服务器地址
     database: 0 # Redis数据库索引（默认为0）
@@ -25,6 +28,8 @@ spring:
         max-idle: 8 # 连接池中的最大空闲连接
         min-idle: 0 # 连接池中的最小空闲连接
     timeout: 3000ms # 连接超时时间（毫秒）
+  main:
+    allow-bean-definition-overriding: true
 
 eureka:
   instance:

@@ -26,9 +26,9 @@
     <result column="mark" jdbcType="INTEGER" property="mark" />
     <result column="resourcedir" jdbcType="VARCHAR" property="resourcedir" />
     <result column="country" jdbcType="INTEGER" property="country" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="cteate_time" jdbcType="TIMESTAMP" property="cteateTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
-    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.still.rms.mbg.model.Resource">
     <!--
@@ -44,7 +44,7 @@
     -->
     id, title, designation, issuingdate, duration, director, manufacturer, publisher, 
     score, `type`, `size`, videotype, videoname, samplevideo, poster, poster_full, theme, 
-    mark, resourcedir, country, cteate_time, modify_time, `status`
+    mark, resourcedir, country, `status`, cteate_time, modify_time
   </sql>
   <sql id="Blob_Column_List">
     <!--
@@ -87,16 +87,16 @@
       `size`, videotype, videoname, 
       samplevideo, poster, poster_full, 
       theme, mark, resourcedir, 
-      country, cteate_time, modify_time, 
-      `status`, `describe`)
+      country, `status`, cteate_time, 
+      modify_time, `describe`)
     values (#{title,jdbcType=VARCHAR}, #{designation,jdbcType=VARCHAR}, #{issuingdate,jdbcType=TIMESTAMP}, 
       #{duration,jdbcType=INTEGER}, #{director,jdbcType=VARCHAR}, #{manufacturer,jdbcType=VARCHAR}, 
       #{publisher,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, #{type,jdbcType=INTEGER}, 
       #{size,jdbcType=DOUBLE}, #{videotype,jdbcType=INTEGER}, #{videoname,jdbcType=VARCHAR}, 
       #{samplevideo,jdbcType=VARCHAR}, #{poster,jdbcType=VARCHAR}, #{posterFull,jdbcType=VARCHAR}, 
       #{theme,jdbcType=INTEGER}, #{mark,jdbcType=INTEGER}, #{resourcedir,jdbcType=VARCHAR}, 
-      #{country,jdbcType=INTEGER}, #{cteateTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=INTEGER}, #{describe,jdbcType=LONGVARCHAR})
+      #{country,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{cteateTime,jdbcType=TIMESTAMP}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, #{describe,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.still.rms.mbg.model.Resource">
     <!--
@@ -165,14 +165,14 @@
       <if test="country != null">
         country,
       </if>
+      <if test="status != null">
+        `status`,
+      </if>
       <if test="cteateTime != null">
         cteate_time,
       </if>
       <if test="modifyTime != null">
         modify_time,
-      </if>
-      <if test="status != null">
-        `status`,
       </if>
       <if test="describe != null">
         `describe`,
@@ -236,14 +236,14 @@
       <if test="country != null">
         #{country,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
       <if test="cteateTime != null">
         #{cteateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="modifyTime != null">
         #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=INTEGER},
       </if>
       <if test="describe != null">
         #{describe,jdbcType=LONGVARCHAR},
@@ -314,14 +314,14 @@
       <if test="country != null">
         country = #{country,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
       <if test="cteateTime != null">
         cteate_time = #{cteateTime,jdbcType=TIMESTAMP},
       </if>
       <if test="modifyTime != null">
         modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="status != null">
-        `status` = #{status,jdbcType=INTEGER},
       </if>
       <if test="describe != null">
         `describe` = #{describe,jdbcType=LONGVARCHAR},
@@ -354,9 +354,9 @@
       mark = #{mark,jdbcType=INTEGER},
       resourcedir = #{resourcedir,jdbcType=VARCHAR},
       country = #{country,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
       cteate_time = #{cteateTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      `status` = #{status,jdbcType=INTEGER},
       `describe` = #{describe,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -385,9 +385,9 @@
       mark = #{mark,jdbcType=INTEGER},
       resourcedir = #{resourcedir,jdbcType=VARCHAR},
       country = #{country,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
       cteate_time = #{cteateTime,jdbcType=TIMESTAMP},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      `status` = #{status,jdbcType=INTEGER}
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

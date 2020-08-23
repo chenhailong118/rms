@@ -1,7 +1,6 @@
 package com.still.rms.common.dto;
 
 import com.still.rms.mbg.model.Resource;
-import com.still.rms.mbg.model.Video;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

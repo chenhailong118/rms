@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.still.rms.superstar.dao.RelationResourceTagCustomMapper">
+    <insert id="insertList">
+        INSERT INTO relation_resource_tag (resource_id, tag_id) VALUES
+        <foreach collection="list" separator="," item="item" index="index">
+            (#{item.resourceId,jdbcType=BIGINT},
+            #{item.tagId,jdbcType=BIGINT})
+        </foreach>
+    </insert>
+    <delete id="deleteByResourceId">
+        delete from relation_resource_tag where resource_id = #{resourceId}
+    </delete>
+</mapper>

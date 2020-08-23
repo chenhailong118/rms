@@ -50,4 +50,7 @@ public class ResourceQueryCondition extends Resource {
 
     @ApiModelProperty(value = "演员ID")
     private Integer actorId;
+
+    @ApiModelProperty(value = "标签ID")
+    private Integer tagId;
 }
