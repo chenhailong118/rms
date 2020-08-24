@@ -49,8 +49,8 @@ public class ResourceQueryCondition extends Resource {
     private String orderStr;
 
     @ApiModelProperty(value = "演员ID")
-    private Integer actorId;
+    private Long actorId;
 
     @ApiModelProperty(value = "标签ID")
-    private Integer tagId;
+    private Long tagId;
 }

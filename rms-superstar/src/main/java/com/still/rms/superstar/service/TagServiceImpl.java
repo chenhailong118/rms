@@ -9,6 +9,7 @@ import com.still.rms.common.dto.TagTree;
 import com.still.rms.common.querycondition.TagQueryCondition;
 import com.still.rms.mbg.mapper.TagMapper;
 import com.still.rms.mbg.model.Tag;
+import com.still.rms.superstar.dao.RelationResourceTagCustomMapper;
 import com.still.rms.superstar.dao.TagCustomMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class TagServiceImpl implements TagService{
 
     @Autowired
     private TagCustomMapper tagCustomMapper;
+
+    @Autowired
+    private RelationResourceTagCustomMapper relationResourceTagCustomMapper;
 
     @Override
     public Integer addTag(TagDto tagDto) {
@@ -60,8 +64,8 @@ public class TagServiceImpl implements TagService{
             throw new ApiException(ResultCode.MENU_NOT_FOUND);
         }
 
-//        //删除角色标签关系
-//        authRoleTagCustomMapper.deleteByTagId(tagId);
+        //删除资源标签关系
+        relationResourceTagCustomMapper.deleteByTagId(tagId);
         return tagMapper.deleteByPrimaryKey(tagId);
     }
 

@@ -37,12 +37,12 @@ public interface ActorService {
      * @param actorDto 演员信息
      * @return
      */
-    Integer updateActor(Integer id, ActorDto actorDto);
+    Integer updateActor(Long id, ActorDto actorDto);
 
     /**
      * 删除演员信息
      * @param id 演员id
      * @return
      */
-    Integer deleteActor(Integer id);
+    Integer deleteActor(Long id);
 }

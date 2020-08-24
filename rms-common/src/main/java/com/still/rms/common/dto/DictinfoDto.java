@@ -9,22 +9,13 @@ import java.util.Date;
 
 @Data
 public class DictinfoDto extends Dictinfo {
-    @ApiModelProperty(value = "主键")
-    private Integer id;
-
     @ApiModelProperty(value = "数据字典类型ID")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Integer dicttypeId;
-
-    @ApiModelProperty(value = "字典信息")
-    private String name;
+    private Long dicttypeId;
 
     @ApiModelProperty(value = "排序")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Integer order;
-
-    @ApiModelProperty(value = "父节点ID，根节点为0")
-    private Integer parentId;
 
     @ApiModelProperty(value = "创建时间")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

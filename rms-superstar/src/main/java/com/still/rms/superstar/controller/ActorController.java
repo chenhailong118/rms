@@ -78,7 +78,7 @@ public class ActorController {
     @ApiOperation(value = "修改演员信息",notes = "修改演员信息")
     @ApiImplicitParam(name = "id", value = "演员id")
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public CommonResponse<Integer> editActor(@NotNull @PathVariable(value = "id") Integer id, @Validated @RequestBody ActorDto actorDto){
+    public CommonResponse<Integer> editActor(@NotNull @PathVariable(value = "id") Long id, @Validated @RequestBody ActorDto actorDto){
         Integer count = actorService.updateActor(id,actorDto);
         return CommonResponse.success(count);
     }
@@ -91,7 +91,7 @@ public class ActorController {
     @ApiOperation(value = "删除演员信息",notes = "删除演员信息")
     @ApiImplicitParam(name = "id", value = "演员id")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    public CommonResponse<Integer> deleteActor(@PathVariable(value = "id") Integer id){
+    public CommonResponse<Integer> deleteActor(@PathVariable(value = "id") Long id){
         Integer count = actorService.deleteActor(id);
         return CommonResponse.success(count);
     }

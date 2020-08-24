@@ -25,4 +25,9 @@ public interface RelationResourceTagCustomMapper {
      */
     Integer insertList(@Param("list") List<RelationResourceTag> relationList);
 
+    /**
+     * 根据标签id删除资源标签关系
+     * @param tagId
+     */
+    Integer deleteByTagId(@Param("tagId") Long tagId);
 }

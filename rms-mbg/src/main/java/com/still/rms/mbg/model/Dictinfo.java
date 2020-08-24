@@ -13,10 +13,10 @@ import java.util.Date;
  */
 public class Dictinfo implements Serializable {
     @ApiModelProperty(value = "主键")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty(value = "数据字典类型ID")
-    private Integer dicttypeId;
+    private Long dicttypeId;
 
     @ApiModelProperty(value = "字典信息")
     private String name;
@@ -25,7 +25,7 @@ public class Dictinfo implements Serializable {
     private Integer order;
 
     @ApiModelProperty(value = "父节点ID，根节点为0")
-    private Integer parentId;
+    private Long parentId;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -49,7 +49,7 @@ public class Dictinfo implements Serializable {
      *
      * @mbggenerated
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -61,7 +61,7 @@ public class Dictinfo implements Serializable {
      *
      * @mbggenerated
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -73,7 +73,7 @@ public class Dictinfo implements Serializable {
      *
      * @mbggenerated
      */
-    public Integer getDicttypeId() {
+    public Long getDicttypeId() {
         return dicttypeId;
     }
 
@@ -85,7 +85,7 @@ public class Dictinfo implements Serializable {
      *
      * @mbggenerated
      */
-    public void setDicttypeId(Integer dicttypeId) {
+    public void setDicttypeId(Long dicttypeId) {
         this.dicttypeId = dicttypeId;
     }
 
@@ -145,7 +145,7 @@ public class Dictinfo implements Serializable {
      *
      * @mbggenerated
      */
-    public Integer getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
@@ -157,7 +157,7 @@ public class Dictinfo implements Serializable {
      *
      * @mbggenerated
      */
-    public void setParentId(Integer parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
     }
 

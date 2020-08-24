@@ -38,21 +38,21 @@ public interface ResourceService {
      * @param resourceDto 资源信息
      * @return
      */
-    Integer updateResource(Integer id, ResourceDto resourceDto);
+    Integer updateResource(Long id, ResourceDto resourceDto);
 
     /**
      * 删除资源信息
      * @param id 资源id
      * @return
      */
-    Integer deleteResource(Integer id);
+    Integer deleteResource(Long id);
 
     /**
      * 根据资源ID查询演员ID列表
      * @param id 资源ID
      * @return
      */
-    List<Integer> queryActorIds(Integer id);
+    List<Long> queryActorIds(Long id);
 
     /**
      * 分配资源标签关系
@@ -67,5 +67,5 @@ public interface ResourceService {
      * @param id
      * @return
      */
-    List<ActorIdAndName> queryActors(Integer id);
+    List<ActorIdAndName> queryActors(Long id);
 }

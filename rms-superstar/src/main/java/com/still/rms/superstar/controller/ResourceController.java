@@ -84,7 +84,7 @@ public class ResourceController {
     @ApiOperation(value = "修改资源信息",notes = "修改资源信息")
     @ApiImplicitParam(name = "id", value = "资源id")
     @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    public CommonResponse<Integer> editResource(@NotNull @PathVariable(value = "id") Integer id, @Validated @RequestBody ResourceDto resourceDto){
+    public CommonResponse<Integer> editResource(@NotNull @PathVariable(value = "id") Long id, @Validated @RequestBody ResourceDto resourceDto){
         Integer count = resourceService.updateResource(id,resourceDto);
         return CommonResponse.success(count);
     }
@@ -97,7 +97,7 @@ public class ResourceController {
     @ApiOperation(value = "删除资源信息",notes = "删除资源信息")
     @ApiImplicitParam(name = "id", value = "资源id")
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
-    public CommonResponse<Integer> deleteResource(@PathVariable(value = "id") Integer id){
+    public CommonResponse<Integer> deleteResource(@PathVariable(value = "id") Long id){
         Integer count = resourceService.deleteResource(id);
         return CommonResponse.success(count);
     }
@@ -110,7 +110,7 @@ public class ResourceController {
     @ApiOperation(value = "根据资源ID查询演员列表", notes = "根据资源ID查询演员列表")
     @ApiImplicitParam(name = "id", value = "资源id", dataType = "Integer")
     @RequestMapping(value = "actors/{id}", method = RequestMethod.GET)
-    public CommonResponse<List<ActorIdAndName>> queryActorIds(@PathVariable("id") Integer id){
+    public CommonResponse<List<ActorIdAndName>> queryActorIds(@PathVariable("id") Long id){
         return CommonResponse.success(resourceService.queryActors(id));
     }
 

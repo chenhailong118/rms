@@ -78,7 +78,7 @@ public class ActorServiceImpl implements ActorService {
      * @return
      */
     @Override
-    public Integer updateActor(Integer id, ActorDto actorDto) {
+    public Integer updateActor(Long id, ActorDto actorDto) {
         if(id == null){
             throw new ApiException(ResultCode.ILLEGAL_PARAMS);
         }
@@ -95,7 +95,7 @@ public class ActorServiceImpl implements ActorService {
      * @return
      */
     @Override
-    public Integer deleteActor(Integer id) {
+    public Integer deleteActor(Long id) {
         if(actorMapper.selectByPrimaryKey(id) == null){
             throw new ApiException(ResultCode.USER_NOT_FOUND);
         }

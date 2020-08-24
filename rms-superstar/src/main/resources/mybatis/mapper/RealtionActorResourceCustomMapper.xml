@@ -4,7 +4,7 @@
   <delete id="deleteByResourceId">
     delete from realtion_actor_resource where resource_id = #{resourceId}
   </delete>
-  <select id="queryActorIdsByResourceId" resultType="java.lang.Integer">
+  <select id="queryActorIdsByResourceId" resultType="java.lang.Long">
     select actor_id from realtion_actor_resource where resource_id = #{resourceId}
   </select>
 </mapper>

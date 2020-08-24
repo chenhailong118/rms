@@ -18,6 +18,7 @@ import com.still.rms.superstar.dao.RealtionActorResourceCustomMapper;
 import com.still.rms.superstar.dao.ResourceCustomMapper;
 import com.still.rms.superstar.dao.RelationResourceTagCustomMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -99,7 +100,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return
      */
     @Override
-    public Integer updateResource(Integer id, ResourceDto resourceDto) {
+    public Integer updateResource(Long id, ResourceDto resourceDto) {
         if(id == null){
             throw new ApiException(ResultCode.ILLEGAL_PARAMS);
         }
@@ -126,14 +127,18 @@ public class ResourceServiceImpl implements ResourceService {
      * @return
      */
     @Override
-    public Integer deleteResource(Integer id) {
+    @Transactional
+    public Integer deleteResource(Long id) {
         if(resourceMapper.selectByPrimaryKey(id) == null){
             throw new ApiException(ResultCode.USER_NOT_FOUND);
         }
         Resource resource = new Resource();
         resource.setId(id);
         resource.setStatus(0);
-        return resourceMapper.updateByPrimaryKeySelective(resource);
+        Integer count = resourceMapper.updateByPrimaryKeySelective(resource);
+        realtionActorResourceCustomMapper.deleteByResourceId(id);
+        relationResourceTagCustomMapper.deleteByResourceId(id);
+        return count;
     }
 
     /**
@@ -142,7 +147,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return
      */
     @Override
-    public List<Integer> queryActorIds(Integer id) {
+    public List<Long> queryActorIds(Long id) {
         return realtionActorResourceCustomMapper.queryActorIdsByResourceId(id);
     }
 
@@ -171,7 +176,7 @@ public class ResourceServiceImpl implements ResourceService {
      * @return
      */
     @Override
-    public List<ActorIdAndName> queryActors(Integer id) {
+    public List<ActorIdAndName> queryActors(Long id) {
         return resourceCustomMapper.queryActors(id);
     }
 }

@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Dicttype implements Serializable {
     @ApiModelProperty(value = "主键")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty(value = "字典类型名称")
     private String name;
@@ -40,7 +40,7 @@ public class Dicttype implements Serializable {
      *
      * @mbggenerated
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -52,7 +52,7 @@ public class Dicttype implements Serializable {
      *
      * @mbggenerated
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

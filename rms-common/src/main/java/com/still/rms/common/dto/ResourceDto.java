@@ -17,5 +17,5 @@ import java.util.List;
 public class ResourceDto extends Resource {
 
     @ApiModelProperty(value = "演员ID数组")
-    private List<Integer> actors;
+    private List<Long> actors;
 }

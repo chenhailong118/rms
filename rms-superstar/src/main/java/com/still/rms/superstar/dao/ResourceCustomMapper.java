@@ -18,5 +18,5 @@ import java.util.List;
 public interface ResourceCustomMapper {
     List<ResourceDto> getResourcesBySelective(ResourceQueryCondition resourceQueryCondition);
 
-    List<ActorIdAndName> queryActors(@Param("id") Integer id);
+    List<ActorIdAndName> queryActors(@Param("id") Long id);
 }

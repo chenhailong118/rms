@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Actor implements Serializable {
     @ApiModelProperty(value = "演员id")
-    private Integer id;
+    private Long id;
 
     @ApiModelProperty(value = "姓名")
     private String name;
@@ -82,7 +82,7 @@ public class Actor implements Serializable {
      *
      * @mbggenerated
      */
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -94,7 +94,7 @@ public class Actor implements Serializable {
      *
      * @mbggenerated
      */
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

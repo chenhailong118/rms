@@ -18,7 +18,7 @@ public interface RealtionActorResourceCustomMapper {
      * @param resourceId
      * @return
      */
-    Integer deleteByResourceId(@Param("resourceId") Integer resourceId);
+    Integer deleteByResourceId(@Param("resourceId") Long resourceId);
 
-    List<Integer> queryActorIdsByResourceId(@Param("resourceId") Integer resourceId);
+    List<Long> queryActorIdsByResourceId(@Param("resourceId") Long resourceId);
 }

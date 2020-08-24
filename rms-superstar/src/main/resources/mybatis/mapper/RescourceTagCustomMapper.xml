@@ -11,4 +11,7 @@
     <delete id="deleteByResourceId">
         delete from relation_resource_tag where resource_id = #{resourceId}
     </delete>
+    <delete id="deleteByTagId">
+        delete from relation_resource_tag where tag_id = #{tagId}
+    </delete>
 </mapper>
