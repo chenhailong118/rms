@@ -1,3 +1,58 @@
+server:
+  port: 8081
+management:
+  server:
+    port: 9081
+
 spring:
   profiles:
     active: dev
+  application:
+    name: superstar
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  main:
+    allow-bean-definition-overriding: true
+
+eureka:
+  instance:
+    #续约间隔心跳时间
+    lease-renewal-interval-in-seconds: 5
+    #续约过期时间
+    lease-expiration-duration-in-seconds: 10
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://peer1:8666/eureka/,http://peer2:8777/eureka/
+    #开启健康检查状态上报
+    healthcheck:
+      enabled: true
+
+#feign的配置，连接超时及读取超时配置
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  type-aliases-package: con.still.rms.superstar.entity
+
+#Swagger Tag 排序
+swagger:
+  ui-config:
+    tags-sorter: alpha
+    # Swagger 分组排序问题,两个配置项: alpha<按字母表排序>,method<按方法定义顺序排序>
+    operations-sorter: method
+
+#Security配置参数
+security:
+  jwt:
+    secret: rms-sec
+    expiration: 3600  # token超时时间，单位：秒
+    tokenPrefix: Bearer # token前缀

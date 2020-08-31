@@ -4,6 +4,8 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 
 /**
  * @Author FishAndFlower
@@ -15,5 +17,5 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "superstar")
 public class SuperstarProperties {
-    private String basePath;
+    private List<String> basePath;
 }

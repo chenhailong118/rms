@@ -67,7 +67,7 @@
         OR rs.`publisher` like CONCAT('%',#{keyWord,jdbcType=VARCHAR},'%'))
       </if>
       <if test="designation != null">
-        AND rs.`designation` = #{designation,jdbcType=VARCHAR}
+        AND rs.`designation` like concat(#{designation,jdbcType=VARCHAR},'%')
       </if>
       <if test="issuingdateFrom != null">
         AND rs.issuingdate &gt;= #{issuingdateFrom,jdbcType=TIMESTAMP}

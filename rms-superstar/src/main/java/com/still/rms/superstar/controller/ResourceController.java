@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,19 +122,49 @@ public class ResourceController {
      */
     @ApiOperation(value = "获取资源图片列表", notes = "根据资源路径查询资源图片列表")
     @ApiImplicitParam(name = "dir", value = "文件存储路径", dataType = "String")
-    @RequestMapping(value = "dir", method = RequestMethod.GET)
-    public CommonResponse<List<String>> queryActorIds(String dir){
+    @RequestMapping(value = "image", method = RequestMethod.GET)
+    public CommonResponse<List<String>> queryImages(String dir){
+        dir = dir.substring(1);
+        String relativePath = dir.substring(dir.indexOf("/"));
         List<String> images = new ArrayList();
-        String imageDir = superstarProperties.getBasePath() + dir + "/image";
-        File[] imageFile = new File(imageDir).listFiles();
-        if (imageFile != null) {
-            for (File file : imageFile) {
-                if (file.isFile()) {
-                    images.add(file.getName());
+        superstarProperties.getBasePath().stream().forEach(basePath ->{
+            String imageDir = basePath + relativePath + "/image";
+            File[] imageFile = new File(imageDir).listFiles();
+            if (imageFile != null) {
+                for (File file : imageFile) {
+                    if (file.isFile()) {
+                        images.add(file.getName());
+                    }
                 }
             }
-        }
+        });
         return CommonResponse.success(images);
+    }
+
+    /**
+     * 根据文件路径查询GIF图片列表
+     * @param dir 资源路径
+     * @return
+     */
+    @ApiOperation(value = "获取资源GIF图片列表", notes = "根据资源路径查询资源GIF图片列表")
+    @ApiImplicitParam(name = "dir", value = "文件存储路径", dataType = "String")
+    @RequestMapping(value = "gif", method = RequestMethod.GET)
+    public CommonResponse<List<String>> queryGifs(String dir){
+        dir = dir.substring(1);
+        String relativePath = dir.substring(dir.indexOf("/"));
+        List<String> gifs = new ArrayList();
+        superstarProperties.getBasePath().stream().forEach(basePath ->{
+            String imageDir = basePath + relativePath + "/gif";
+            File[] imageFile = new File(imageDir).listFiles();
+            if (imageFile != null) {
+                for (File file : imageFile) {
+                    if (file.isFile()) {
+                        gifs.add(file.getName());
+                    }
+                }
+            }
+        });
+        return CommonResponse.success(gifs);
     }
 
     @ApiOperation("给资源添加标签")
@@ -144,5 +175,29 @@ public class ResourceController {
             return CommonResponse.success(count);
         }
         return CommonResponse.error(ResultCode.UNKNOWN_ERROR);
+    }
+
+    /**
+     * 打开本地文件夹
+     * @param dir
+     * @return
+     */
+    @GetMapping("/opendir")
+    public CommonResponse openLocalDir(String dir) {
+        dir = dir.substring(1);
+        String relativePath = dir.substring(dir.indexOf("/"));
+        superstarProperties.getBasePath().stream().forEach(basePath -> {
+            try {
+                String fullDir = basePath + relativePath;
+                String cmd = "cmd /c start explorer " + fullDir.replace("/", "\\");
+                File[] files = new File(fullDir).listFiles();
+                if (files != null) {
+                    Runtime.getRuntime().exec(cmd);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        return CommonResponse.success();
     }
 }

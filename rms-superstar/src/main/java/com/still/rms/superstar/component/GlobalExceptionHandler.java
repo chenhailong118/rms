@@ -1,4 +1,4 @@
-package com.still.rms.auth.component;
+package com.still.rms.superstar.component;
 
 
 import com.still.rms.common.api.ApiException;
