@@ -132,7 +132,7 @@ public class ResourceController {
             File[] imageFile = new File(imageDir).listFiles();
             if (imageFile != null) {
                 for (File file : imageFile) {
-                    if (file.isFile()) {
+                    if (file.isFile() && file.getName().endsWith("jpg")) {
                         images.add(file.getName());
                     }
                 }
@@ -158,7 +158,7 @@ public class ResourceController {
             File[] imageFile = new File(imageDir).listFiles();
             if (imageFile != null) {
                 for (File file : imageFile) {
-                    if (file.isFile()) {
+                    if (file.isFile() && file.getName().endsWith("gif")) {
                         gifs.add(file.getName());
                     }
                 }
