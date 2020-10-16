@@ -58,7 +58,7 @@
 
 ### Windows本地环境安装及部署
     1、 安装Nginx，修改配置文件nginx.conf
-    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/nginx.png) 
+    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/nginx.png)
     
     2、 安装Redis
     
