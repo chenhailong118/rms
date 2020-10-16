@@ -72,4 +72,3 @@
    6、 IDEA打开rms工程，顺序启动所有EurekaPeer1,EurekaPeer2(服务注册与发现),Auth(权限管理系统),Superstar(资源管理系统),ApiGateway(API网关)
    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/rms.png)
    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/startup.png)
-   
