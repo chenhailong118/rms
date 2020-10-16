@@ -57,19 +57,19 @@
 ## 项目部署
 
 ### Windows本地环境安装及部署
-    1、 安装Nginx，修改配置文件nginx.conf
-    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/nginx.png) 
+   1、 安装Nginx，修改配置文件nginx.conf
+   ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/nginx.png) 
     
-    2、 安装Redis
+   2、 安装Redis
     
-    3、 安装Mysql
+   3、 安装Mysql
     
-    4、 安装JDK
+   4、 安装JDK
     
-    5、 修改域名，打开文件夹：C:\Windows\System32\drivers\etc\hosts,增加两条记录
-    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/host.png)
+   5、 修改域名，打开文件夹：C:\Windows\System32\drivers\etc\hosts,增加两条记录
+   ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/host.png)
     
-    6、 IDEA打开rms工程，顺序启动所有EurekaPeer1,EurekaPeer2(服务注册与发现),Auth(权限管理系统),Superstar(资源管理系统),ApiGateway(API网关)
-    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/rms.png)
-    ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/startup.png)
-    
+   6、 IDEA打开rms工程，顺序启动所有EurekaPeer1,EurekaPeer2(服务注册与发现),Auth(权限管理系统),Superstar(资源管理系统),ApiGateway(API网关)
+   ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/rms.png)
+   ![Image text](https://github.com/STIll-clx/img-folder/blob/main/rms/startup.png)
+   
