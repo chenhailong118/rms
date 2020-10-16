@@ -6,7 +6,9 @@ import com.still.rms.common.api.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -44,6 +46,10 @@ public class RestAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 		log.info("登录失败");
 		response.setStatus(HttpStatus.OK.value());
 		response.setContentType("application/json;charset=UTF-8");
-		response.getWriter().write(objectMapper.writeValueAsString(CommonResponse.error(ResultCode.USERNAME_OR_PASSWORD_WRONG)));
+		if(exception instanceof BadCredentialsException){
+			response.getWriter().write(objectMapper.writeValueAsString(CommonResponse.error(ResultCode.USERNAME_OR_PASSWORD_WRONG)));
+		}else{
+			response.getWriter().write(objectMapper.writeValueAsString(CommonResponse.error(exception.getMessage())));
+		}
 	}
 }

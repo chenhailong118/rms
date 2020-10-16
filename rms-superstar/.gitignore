@@ -34,3 +34,4 @@ build/
 ###  生产/测试配置文件 ###
 *-pro.yml
 *-test.yml
+/src/test/java/com/still/rms/superstar/UpdateResourceTests.java

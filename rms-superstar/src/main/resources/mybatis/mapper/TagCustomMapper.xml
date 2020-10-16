@@ -39,7 +39,6 @@
         <include refid="Base_Column_List"></include>
         from tag
         <include refid="Where"></include>
-        order by sort desc
     </select>
 
     <select id="getTagsByResourceId" resultType="com.still.rms.common.dto.TagDto">

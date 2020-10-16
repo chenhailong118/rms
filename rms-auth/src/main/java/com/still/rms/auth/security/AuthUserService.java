@@ -1,7 +1,9 @@
 package com.still.rms.auth.security;
 
 import com.still.rms.mbg.model.AuthUser;
+import org.springframework.security.core.Authentication;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -19,4 +21,11 @@ public interface AuthUserService {
      */
     Map<String,Object> getUserInfo(String token);
 
+//    /**
+//     * 判断请求是否有权限
+//     * @param request
+//     * @param authentication
+//     * @return
+//     */
+//    boolean hasPermission(HttpServletRequest request, Authentication authentication);
 }

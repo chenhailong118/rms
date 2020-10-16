@@ -22,6 +22,7 @@ import java.util.*;
 public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
 
     private static Map<String, ConfigAttribute> configAttributeMap = null;
+
     @Autowired
     private DynamicSecurityService dynamicSecurityService;
 
@@ -29,12 +30,6 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     public void loadDataSource() {
         configAttributeMap = dynamicSecurityService.loadDataSource();//加载所有的URL和资源map
     }
-
-    public void clearDataSource() {
-        configAttributeMap.clear();
-        configAttributeMap = null;
-    }
-
 
     /**
      * 获取访问路径所需要的权限

@@ -60,15 +60,15 @@ auth:
   iconPath: /rms/images/icon
 #Security配置参数
 security:
-  browser:
-    tokenHeader: Authorization # token存放的Request Headers头名称
-    logInUrlForm: /auth/form # 用户名密码登录地址
-    logOutUrl: /auth/logout # 退出登录地址
-    ignoreUrls: # 无需登录即可访问的地址
-      - /auth/user/icon
-      - /auth/security/user
-      - /auth/security/resources
-      - /auth/security/resourceall
+#  browser:
+#    tokenHeader: Authorization # token存放的Request Headers头名称
+#    logInUrlForm: /auth/form # 用户名密码登录地址
+#    logOutUrl: /auth/logout # 退出登录地址
+#    ignoreUrls: # 白名单，无需登录即可访问的地址
+#      - /auth/security/resourceall
+#      - /auth/user/icon
+#      - /auth/security/user
+#      - /auth/security/resources
   # 验证码相关
   code:
     # 图片验证码

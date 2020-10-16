@@ -43,18 +43,17 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader(SecurityConstants.DEFAULT_TOKEN_HEADER);
         if (authHeader != null && authHeader.startsWith(securityProperties.getJwt().getTokenPrefix())) {
             String authToken = authHeader.substring(securityProperties.getJwt().getTokenPrefix().length());// The part after "Bearer "
-            String username = jwtTokenUtil.getUserNameFromToken(authToken, securityProperties.getJwt().getSecret());
-            LOGGER.info("checking username:{}", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-                if(jwtTokenUtil.isTokenExpired(authToken, securityProperties.getJwt().getSecret())){
-
-                }
-                if (jwtTokenUtil.validateToken(authToken, securityProperties.getJwt().getSecret(), userDetails)) {
-                    UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    LOGGER.info("authenticated user:{}", username);
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+            if(!jwtTokenUtil.isTokenExpired(authToken, securityProperties.getJwt().getSecret())){
+                String username = jwtTokenUtil.getUserNameFromToken(authToken, securityProperties.getJwt().getSecret());
+                LOGGER.info("checking username:{}", username);
+                if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                    UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+                    if (jwtTokenUtil.validateToken(authToken, securityProperties.getJwt().getSecret(), userDetails)) {
+                        UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                        LOGGER.info("authenticated user:{}", username);
+                        SecurityContextHolder.getContext().setAuthentication(authentication);
+                    }
                 }
             }
         }

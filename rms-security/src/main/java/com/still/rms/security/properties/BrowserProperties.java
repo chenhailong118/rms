@@ -27,10 +27,4 @@ public class BrowserProperties {
      * 退出处理请求URL
      */
     private String logOutUrl = SecurityConstants.DEFAULT_LOG_OUT_URL;
-
-    /**
-     * 配置不需要保护的资源路径
-     */
-    private List<String> ignoreUrls = new ArrayList<>();
-
 }

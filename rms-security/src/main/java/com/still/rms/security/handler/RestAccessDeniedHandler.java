@@ -26,6 +26,7 @@ public class RestAccessDeniedHandler implements AccessDeniedHandler {
         response.setHeader("Cache-Control","no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
+        response.setStatus(403);
         response.getWriter().println(JSONUtil.parse(CommonResponse.forbidden(e.getMessage())));
         response.getWriter().flush();
     }

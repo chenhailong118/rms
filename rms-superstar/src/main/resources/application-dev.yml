@@ -28,3 +28,8 @@ superstar:
 logging:
   level:
     root: INFO
+security:
+  jwt:
+    secret: rms-sec
+    expiration: 3600  # token超时时间，单位：秒
+    tokenPrefix: Bearer # token前缀

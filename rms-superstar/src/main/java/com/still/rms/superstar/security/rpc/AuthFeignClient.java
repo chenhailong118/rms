@@ -24,21 +24,21 @@ public interface AuthFeignClient {
      * 获取所有资源列表
      * @return
      */
-    @GetMapping(value = "/auth/security/resourceall")
+    @GetMapping(value = "/security/resourceall")
     CommonResponse<PageInfo<AuthResourceDto>> queryResources();
 
     /**
      * 根据用户名获取用户信息
      * @return
      */
-    @GetMapping(value = "/auth/security/user")
+    @GetMapping(value = "/security/user")
     CommonResponse<AuthUser> getUserByUsername(@RequestParam("username") String username);
 
     /**
      * 根据用户名ID获取用户权限信息
      * @return
      */
-    @GetMapping(value = "/auth/security/resources")
+    @GetMapping(value = "/security/resources")
     CommonResponse<List<AuthResource>> getResourcesByUserId(@RequestParam("userId") Long userId);
 
 }

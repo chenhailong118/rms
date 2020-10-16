@@ -70,9 +70,4 @@ public class RestAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 		response.getWriter().write(objectMapper.writeValueAsString(CommonResponse.success(resultMap)));
 	}
 
-	public static void main(String[] args) {
-		System.out.println();
-		System.out.println(LocalDateTime.now().toInstant(ZoneOffset.of("+8")).toEpochMilli());
-		System.out.println(new Date().getTime());
-	}
 }

@@ -31,7 +31,6 @@ import java.util.List;
 @Slf4j
 @RestController
 @Api(value = "鉴权", description = "鉴权API")
-@RequestMapping("/auth/security")
 @Validated
 public class AuthController {
 
@@ -45,19 +44,19 @@ public class AuthController {
     private ResourceService resourceService;
 
     @ApiOperation(value = "获取当前登录用户信息")
-    @RequestMapping(value = "info", method = RequestMethod.GET)
+    @RequestMapping(value = "/auth/security/info", method = RequestMethod.GET)
     public CommonResponse getUserInfo(@RequestHeader("Authorization") String token) {
         return CommonResponse.success(authUserService.getUserInfo(token));
     }
 
     @ApiOperation(value = "根据用户名获取用户信息")
-    @RequestMapping(value = "user", method = RequestMethod.GET)
+    @RequestMapping(value = "/security/user", method = RequestMethod.GET)
     public CommonResponse<AuthUser> getUserByUsername(@RequestParam("username") String username) {
         return CommonResponse.success(userService.getUserByUsername(username));
     }
 
     @ApiOperation(value = "根据用户名ID获取用户权限信息")
-    @RequestMapping(value = "resources", method = RequestMethod.GET)
+    @RequestMapping(value = "/security/resources", method = RequestMethod.GET)
     public CommonResponse<List<AuthResource>> getResourcesByUserId(@RequestParam("userId") Long userId) {
         return CommonResponse.success(userService.getResourcesByUserId(userId));
     }
@@ -67,7 +66,7 @@ public class AuthController {
      * @return
      */
     @ApiOperation(value = "获取资源列表", notes = "获取资源列表")
-    @GetMapping(value = "resourceall")
+    @GetMapping(value = "/security/resourceall")
     public CommonResponse<PageInfo<AuthResourceDto>> queryResources(){
         return CommonResponse.success(resourceService.queryAuthResources(null, null, null));
     }

@@ -6,7 +6,7 @@ management:
 
 spring:
   profiles:
-    active: test
+    active: dev
   application:
     name: superstar
   jackson:

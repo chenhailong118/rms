@@ -24,6 +24,7 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
 	@Autowired
 	private SecurityProperties securityProperties;
 
+
 	
 	/*
 	 * (non-Javadoc)

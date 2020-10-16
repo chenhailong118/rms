@@ -19,11 +19,6 @@ public interface SecurityConstants {
     String DEFAULT_LOG_OUT_URL = "/auth/logout";
 
     /**
-     * validatecodetoken请求地址
-     */
-    String VISIT_TOKEN_RUL = "/auth/validatecodetoken";
-
-    /**
      * validatecodetoken存储前缀
      */
     String VISIT_TOKEN_PREFIX = "validate_code_token";
