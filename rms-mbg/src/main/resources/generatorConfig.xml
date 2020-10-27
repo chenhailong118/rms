@@ -38,7 +38,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.still.rms.mbg.mapper"
                              targetProject="rms-mbg\src\main\java"/>
         <!--生成全部表tableName设为%-->
-        <table tableName="resource"
+        <table tableName="tag"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

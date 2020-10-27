@@ -2,6 +2,7 @@ package com.still.rms.security.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.still.rms.common.api.CommonResponse;
+import com.still.rms.security.properties.SecurityProperties;
 import com.still.rms.security.utils.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +35,6 @@ public class RestAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 
 	private Logger logger = LoggerFactory.getLogger(getClass());
 
-	@Value("${security.jwt.secret}")
-    private String secret = "defaultJwtSecret"; //jwt加密秘钥
-    @Value("${security.jwt.expiration}")
-    private Long expiration = 60*30L;  //过期时间，单位：秒
-    @Value("${security.jwt.tokenPrefix}")
-    private String tokenPrefix = "Bearer"; //token头
-
 	private static final String REDIS_KEY_PREFIX_TOKEN = "redis_token";
 
 	@Autowired
@@ -49,7 +43,8 @@ public class RestAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
-	private RequestCache requestCache = new HttpSessionRequestCache();
+	@Autowired
+	private SecurityProperties securityProperties;
 
 	/*
 	 * 登录成功后调用这个方法
@@ -62,9 +57,9 @@ public class RestAuthenticationSuccessHandler extends SavedRequestAwareAuthentic
 		logger.info("登录成功");
 		//生成返回TOKEN
 		Map resultMap = new HashMap<>();
-		resultMap.put("tokenPrefix", tokenPrefix);
-		resultMap.put("token",jwtTokenUtil.generateToken((UserDetails)authentication.getPrincipal(), secret, expiration));
-		resultMap.put("expireTime", LocalDateTime.now().plusSeconds(expiration).toEpochSecond(ZoneOffset.of("+8")));
+		resultMap.put("tokenPrefix", securityProperties.getJwt().getTokenPrefix());
+		resultMap.put("token",jwtTokenUtil.generateToken((UserDetails)authentication.getPrincipal(), securityProperties.getJwt().getSecret(), securityProperties.getJwt().getExpiration()));
+		resultMap.put("expireTime", LocalDateTime.now().plusSeconds(securityProperties.getJwt().getExpiration()).toEpochSecond(ZoneOffset.of("+8")));
 
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().write(objectMapper.writeValueAsString(CommonResponse.success(resultMap)));

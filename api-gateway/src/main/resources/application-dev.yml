@@ -8,13 +8,13 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: auth_route #权限模块路由
+        - id: auth_route #权限模块路由，当前路由转发的表示，要求唯一，默认UUID
           uri: http://localhost:8083 #匹配后路由地址
-          predicates: # 断言，路径相匹配的进行路由
-            - Path=/auth/**
-#          filters:
+          predicates: # 断言（判断条件，返回值是boolean，转发请求要满足的条件）
+            - Path=/auth/**  # 满足路径匹配规则时进行路由
+#          filters: # 过滤器
 #            - StripPrefix=1
-        - id: superstar_route #superstar模块
+        - id: superstar_route #superstar模块，当前路由转发的表示，要求唯一，默认UUID
           uri: http://localhost:8081
           predicates:
             - Path=/superstar/**

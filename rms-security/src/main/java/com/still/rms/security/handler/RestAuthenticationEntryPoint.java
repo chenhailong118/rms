@@ -1,5 +1,7 @@
 package com.still.rms.security.handler;
 
+import cn.hutool.http.HttpResponse;
+import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONUtil;
 import com.still.rms.common.api.CommonResponse;
 import org.springframework.security.core.AuthenticationException;
@@ -21,6 +23,7 @@ import java.io.IOException;
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        response.setStatus(HttpStatus.HTTP_OK);
         response.setHeader("Cache-Control","no-cache");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
