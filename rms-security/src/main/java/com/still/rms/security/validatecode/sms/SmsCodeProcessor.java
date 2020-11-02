@@ -34,20 +34,11 @@ public class SmsCodeProcessor extends AbstractValidateCodeProcessor<ValidateCode
 	 */
 	@Autowired
 	private SmsCodeSender smsCodeSender;
-
-	@Autowired
-	private UserDetailsService userDetailsService;
 	
 	@Override
 	protected void send(ServletWebRequest request, ValidateCode validateCode) throws Exception {
 		String paramName = SecurityConstants.DEFAULT_PARAMETER_NAME_MOBILE;
 		String mobile = ServletRequestUtils.getRequiredStringParameter(request.getRequest(), paramName);
-		if(StringUtils.isEmpty(mobile)){
-			throw new ValidateCodeException("请输入正确的手机号!");
-		}
-		if(userDetailsService.loadUserByUsername(mobile) == null){
-			throw new ValidateCodeException("手机号码未绑定!");
-		}
 		smsCodeSender.send(mobile, validateCode.getCode());
 		logger.info("短信验证码发送成功");
 		HttpServletResponse response = request.getResponse();

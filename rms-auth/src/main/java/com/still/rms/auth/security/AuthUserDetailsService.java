@@ -38,5 +38,6 @@ public class AuthUserDetailsService implements UserDetailsService {
             return new AuthUserDetails(user,resourceList);
         }
         throw new UsernameNotFoundException("该用户不存在");
+//        return new AuthUserDetails();
     }
 }

@@ -2,7 +2,7 @@ package com.still.rms.security.validatecode.sms;
 
 /**
  * @Author FishAndFlower
- * @Description 短信验证码处理器
+ * @Description 短信验证码发送器
  * @Date 2020/8/4 10:51
  * @Version 1.0
  */

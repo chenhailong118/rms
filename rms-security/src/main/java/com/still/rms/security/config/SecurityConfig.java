@@ -73,11 +73,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtAuthenticationTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 //有动态权限配置时添加动态权限校验过滤器
                 .addFilterBefore(dynamicSecurityFilter, FilterSecurityInterceptor.class)
-                .addFilterBefore(visitorFilter,DynamicSecurityFilter.class)
+                .addFilterBefore(visitorFilter,DynamicSecurityFilter.class)//游客访问过滤器
                 //关闭Session
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                // 自定义权限拒绝处理类
+                //自定义权限拒绝处理类
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(restAccessDeniedHandler)
