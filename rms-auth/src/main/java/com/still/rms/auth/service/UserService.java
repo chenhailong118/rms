@@ -54,13 +54,6 @@ public interface UserService {
 
 
     /**
-     * 用户头像上传
-     * @param icon 用户头像
-     * @return
-     */
-    String iconUpload(MultipartFile icon);
-
-    /**
      * 分配用户角色
      * @param userId
      * @param roleIds

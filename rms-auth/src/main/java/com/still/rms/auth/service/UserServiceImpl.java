@@ -157,20 +157,6 @@ public class UserServiceImpl implements UserService {
         return new PageInfo(users);
     }
 
-    /**
-     * 用户头像上传
-     * @param icon 用户头像
-     * @return
-     */
-    @Override
-    public String iconUpload(MultipartFile icon) {
-        try {
-            return authProperties.getIconPath() + FileUtil.saveToLocal(icon,authProperties.getBasePath() + authProperties.getIconPath());
-        } catch (IOException e) {
-            throw new ApiException(ResultCode.ICON_PARSE_WRONG);
-        }
-    }
-
 
     /**
      * 分配用户角色

@@ -105,19 +105,6 @@ public class UserController {
         return CommonResponse.success(userService.queryAuthUsers(authUserQueryCondition, pageNum, pageSize));
     }
 
-    /**
-     * 用户头像上传
-     * @param icon
-     * @return
-     */
-    @ApiOperation(value = "用户头像上传",notes = "创建用户前，先提交头像信息")
-    @ApiParam(name = "file", value = "用户头像",required = true)
-    @RequestMapping(value = "icon",method = RequestMethod.POST)
-    public CommonResponse<String> iconUpload(@RequestParam("file") MultipartFile icon){
-        return CommonResponse.success(userService.iconUpload(icon));
-    }
-
-
     @ApiOperation("分配用户角色")
     @PostMapping("/role/update")
     public CommonResponse<Integer> updateUserRole(AuthUserRoleDto authUserRoleDto){

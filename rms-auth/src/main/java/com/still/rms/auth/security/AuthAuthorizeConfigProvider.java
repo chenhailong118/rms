@@ -22,15 +22,12 @@ import org.springframework.stereotype.Component;
 @Order(Integer.MIN_VALUE)
 public class AuthAuthorizeConfigProvider implements AuthorizeConfigProvider {
 
-	@Autowired
-	private SecurityProperties securityProperties;
-
 	@Override
 	public boolean config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
 		//支持本地应用查询资源信息
 //		config.antMatchers(HttpMethod.GET,"/auth/security/resourceall").access("hasIpAddress('0:0:0:0:0:0:0:1') or hasIpAddress('127.0.0.1')");
-		config.antMatchers(HttpMethod.GET,"/security/resourceall","/security/user","/security/resources").permitAll();
-
+		config.antMatchers(HttpMethod.GET,"/security/resourceall","/security/user","/security/resources").permitAll()
+				.antMatchers(HttpMethod.POST,"/auth/icon").permitAll();
 //		//使用access配置动态权限
 //		config.anyRequest().access("@authUserServiceImpl.hasPermission(request, authentication)");
 		return false;
